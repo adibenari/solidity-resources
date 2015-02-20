@@ -788,14 +788,17 @@ function setPermission(address addr, uint8 permLvl) constant returns (bool res) 
 }
 ```
 
+Also, as we talked about before, what if we want to add more types of banks? That is not hard. We could choose to do it in several ways. One way would be to add many databases and update the bank controller into one that handles multiple databases. We could just give the databases different names in DOUG and make sure the controller knows who they are. Another way of doing it would be to add more banks. There could be several "full" banks, with both controllers and databases. Doug has room for them all. 
+
+The fundmanager would also have to be updated of course, but that is not a problem. With a system like this, it is very easy to make updates, but at the same time it is easy to fall into traps. If we were to add a bunch of contracts to this system, for example, we would run into problems because DOUG is not designed to get rid of them. Its remove function only kills the current ones. Even though it is an extendible system in theory, that does not mean all contracts automatically supports updates.
 
 ### Cost benefit analysis
 
 Given all of the extra contracts and indirection that's needed, we may ask if it's even worth doing. For example, if all I want to do is to deposit some money, why do i have to call one contract that calls a second contract that calls a third one, also doing calls to a fourth one all the way? 
 
-There are some things to consider when deciding how the system should be designed. Modularity is good, but it comes with a price. All this indirection means more calls and more processing, which means the cost for executing the code is higher, and the added bytecode makes the system more bulky. 
+There are some things to consider when deciding how the system should be designed. Modularity is good, but it comes with a price. All this indirection means more calls and more processing, which means the cost for executing the code is higher, and the added bytecode makes the system more bulky. Maybe the system needs to be extremely flexible. Maybe a highly extendible system can be built as a test, using a model like this, but when the system and its components are getting stable and it's clear what it should be doing, then switch to a simpler one. It all depends. 
 
-There is also the matter of trust, but I treat that in the beginning of the document.  
+There is also the matter of trust, but I treat that in the beginning of the document.
 
 ### Coming next
 
