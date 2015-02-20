@@ -2,7 +2,9 @@
 
 Hi. My name is Andreas Olofsson and I work for [Eris Industries](http://erisindustries.com). I work with smart contracts a lot. These are some resources that might be useful for someone who wants to get into smart contract writing.
 
-Various different resources for Solidity contract writing.
+### Written tutorials
+
+Written tutorials will be put in the `published` directory. There's a folder for each series (only one thus far), and each part of the series has its own folder. Inside each of these part folders is the tutorial (as a markdown file) along with an `img` folder that keeps diagrams and such, and a `resources`folder that holds example Solidity contracts and javascript/html. There may be other things in there as well.
 
 ### Video
 
