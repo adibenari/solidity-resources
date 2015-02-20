@@ -1,0 +1,215 @@
+<html>
+<head>
+</head>
+<body>
+	<button onclick="addToDoug()">Add To Doug</button>	
+	<form>
+	Name:<br>
+	<input id="addCNF" type="text"><br>
+	Contract Address:<br>
+	<input id="addCAF" type="text">
+	</form>
+
+	<hr>
+
+	<button onclick="getFromDoug()">Get From Doug</button>	
+	<form>
+	Name:<br>
+	<input id="getCNF" type="text">
+	</form>
+	<div id="getConRet"></div>
+
+	<hr>
+
+	<button onclick="remFromDoug()">Remove From Doug</button>	
+	<form>
+	Name:<br>
+	<input id="remCNF" type="text">
+	</form>
+
+	<hr>
+
+	<button onclick="setPermission()">Set Permission</button>	
+	<form>
+	Account Address:<br>
+	<input id="spaF" type="text">
+	Permission level:<br>
+	<input id="spvF" type="text">
+	</form>
+
+	<hr>
+
+	<button onclick="getPermission()">Get Permission</button>	
+	<form>
+	Account Address:<br>
+	<input id="gpaF" type="text">
+	</form>
+	<div id="getPermRet"></div>
+
+	<hr>
+
+	<button onclick="deposit()">Deposit</button>	
+	<form>
+	Amount:<br>
+	<input id="daF" type="text">
+	</form>
+
+	<hr>
+
+	<button onclick="withdraw()">Withdraw</button>	
+	<form>
+	Amount:<br>
+	<input id="waF" type="text">
+	</form>
+
+	<hr>
+
+	<button onclick="balance()">Balance</button>	
+	<form>
+	Account Address:<br>
+	<input id="baF" type="text">
+	</form>
+	<div id="getBalRet"></div>
+
+
+<script>
+
+	// DOUG spec
+	var DOUG_ABI = [{
+		"name":"contracts",
+		"constant":false,
+		"inputs": [{"name":"name","type":"string32"}],
+		"outputs": [{"name":"addr","type":"address"}],
+		"type":"function"
+	},{
+		"name":"removeContract",
+		"constant":true,
+		"inputs": [{"name":"name","type":"string32"}],
+		"outputs": [{"name":"result","type":"bool"}],
+		"type":"function"
+	},{
+		"name":"remove",
+		"constant":false,
+		"inputs": [],
+		"outputs": [],
+		"type":"function"
+	},{
+		"name":"addContract",
+		"constant":true,
+		"inputs": [{"name":"name","type":"string32"},{"name":"addr","type":"address"}],
+		"outputs": [{"name":"result","type":"bool"}],
+		"type":"function"
+	}];
+
+	// Fundmanager spec
+	var FM_ABI = [{
+		"name":"withdraw",
+		"constant":true,
+		"inputs": [{"name":"amount","type":"uint256"}],
+		"outputs": [{"name":"res","type":"bool"}],
+		"type":"function"
+	},{
+		"name":"deposit",
+		"constant":true,
+		"inputs": [],
+		"outputs": [{"name":"res","type":"bool"}],
+		"type":"function"
+	},{
+		"name":"setPermission",
+		"constant":true,
+		"inputs": [{"name":"addr","type":"address"},{"name":"permLvl","type":"uint8"}],
+		"outputs": [{"name":"res","type":"bool"}],
+		"type":"function"
+	}];
+
+	var PERMS_DB_ABI = [{
+		"constant":true,
+		"inputs": [{"name":"","type":"address"}],
+		"name":"perms",
+		"outputs": [{"name":"","type":"uint8"}],
+		"type":"function"
+	}];
+
+	var BANK_DB_ABI = [{
+		"constant":true,
+		"inputs": [{"name":"","type":"address"}],
+		"name":"balances",
+		"outputs": [{"name":"","type":"uint256"}],
+		"type":"function"
+	}];
+
+var web3 = parent.web3;
+var doug = web3.eth.contract("0x8a9e21408f5c4cd87f679060da05804f81a2165d", DOUG_ABI);
+
+var fm = web3.eth.contract(gfd("fundmanager"),FM_ABI);
+var permsdb = web3.eth.contract(gfd("permsdb"),PERMS_DB_ABI);
+var bankdb = web3.eth.contract(gfd("bankdb"),BANK_DB_ABI);
+
+function addToDoug(){
+	var name = document.getElementById("addCNF").value;
+	var addr = document.getElementById("addCAF").value;
+	doug.transact().addContract(name,addr);
+}
+
+function getFromDoug(){
+	var name = document.getElementById("getCNF").value;
+	var addr = gfd(name);
+	document.getElementById("getConRet").innerHTML = addr;
+}
+
+function gfd(name){
+	return doug.call().contracts(name);
+}
+
+function remFromDoug(){
+	var name = document.getElementById("remCNF").value;
+	doug.transact().removeContract(name);
+}
+
+function setPermission(){
+	var addr = document.getElementById("spaF").value;
+	var val = document.getElementById("spvF").value;
+	val = parseInt(val,10);
+	fm.transact().setPermission(addr,val);
+}
+
+function getPermission(){
+	var addr = document.getElementById("gpaF").value;
+	var perm = gp(addr);
+	document.getElementById("getPermRet").innerHTML = perm;
+}
+
+function gp(addr){
+	return permsdb.perms(addr);
+}
+
+function deposit(){
+	var val = document.getElementById("daF").value;
+	fm._isTransact = true;
+	fm.value(val);
+	fm.deposit();
+	fm.value("0x0");
+}
+
+function withdraw(){
+	var val = document.getElementById("waF").value;
+	console.log(val);
+	fm._isTransact = true;
+	val = parseInt(val,16);
+	fm.withdraw(val);
+}
+
+function balance(){
+	var addr = document.getElementById("baF").value;
+	var b = bal(addr);
+	document.getElementById("getBalRet").innerHTML = b;
+}
+
+function bal(addr){
+	return bankdb.balances(addr);
+}
+
+</script>
+
+</body>
+</html>
