@@ -3,7 +3,7 @@
 
 *By: Andreas Olofsson (andreas@erisindustries.com)*
 
-**Note: When writing this - Feb 2nd, 2015 - Solidity is still under heavy development, which means running the actual code is hard, and since it's on dev it cannot be assumed to be stable. I still chose Solidity as that is becoming the next big language, and it is clean enough to make for good "pseudo code" as well.**
+**Note: When writing this - Feb 2nd, 2015 - Solidity is still under heavy development, which means running the actual code is hard, and since it's on dev it cannot be assumed to be stable. I still chose Solidity because it is becoming the next big language, and it is clean enough to make for good "pseudo code" as well.**
 
 ###Introduction
 
