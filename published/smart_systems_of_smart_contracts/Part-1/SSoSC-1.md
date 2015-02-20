@@ -688,7 +688,7 @@ function deposit(...) {
 Controllers would use Doug to check to make sure the caller is "fundmanager", and it would also use Doug to get the address to the respecive database to do reads, and the fundmanager would use Doug to get the address to the bank and permission controllers. Also, again - using this CMC would be somewhat like craming everything into the global namespace. There is no real structure which is usually wrong but this is a small system and we want to keep things simple. In most systems you'd have more then one CMC and also more advanced CMC logic.
 
 
-### Usage
+### The finished system
 
 The contracts and javascript can be found in the `resources`folder. I would suggest using the AlethZero client when working with the contracts. This is how this system would be deployed:
 

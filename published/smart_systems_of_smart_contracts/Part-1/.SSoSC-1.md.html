@@ -1239,7 +1239,7 @@ contract DougEnabled {
 }</pre>
 </div> 
 <p>Controllers would use Doug to check to make sure the caller is &quot;fundmanager&quot;, and it would also use Doug to get the address to the respecive database to do reads, and the fundmanager would use Doug to get the address to the bank and permission controllers. Also, again - using this CMC would be somewhat like craming everything into the global namespace. There is no real structure which is usually wrong but this is a small system and we want to keep things simple. In most systems you'd have more then one CMC and also more advanced CMC logic.</p> 
-<h3> <a id="user-content-usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h3> 
+<h3> <a id="user-content-the-finished-system" class="anchor" href="#the-finished-system" aria-hidden="true"><span class="octicon octicon-link"></span></a>The finished system</h3> 
 <p>The contracts and javascript can be found in the <code>resources</code>folder. I would suggest using the AlethZero client when working with the contracts. This is how this system would be deployed:</p> 
 <p>1) Deploy Doug, keep track of its address.</p> 
 <p>2) Deploy all the other contracts (doesn't matter in which order it's done), keep track of their addresses.</p> 
