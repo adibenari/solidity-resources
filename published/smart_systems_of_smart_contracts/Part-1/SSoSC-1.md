@@ -700,9 +700,8 @@ The contracts and javascript can be found in the `resources`folder. I would sugg
 
 4) Load the html file in the aleth browser. 
 
-5) Use 'Add To Doug' button to register the contracts under the following names (which is also their file names):
-	
-- 'doug' : doug
+5) Use the 'Add To Doug' button to register the contracts under the following names (which is also their file names):
+
 - 'permsdb' : the permissions database
 - 'perms' : the permissions controller
 - 'bankdb' : the bank database

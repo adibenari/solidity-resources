@@ -32,7 +32,7 @@
 	<button onclick="setPermission()">Set Permission</button>	
 	<form>
 	Account Address:<br>
-	<input id="spaF" type="text">
+	<input id="spaF" type="text"><br>
 	Permission level:<br>
 	<input id="spvF" type="text">
 	</form>
@@ -139,7 +139,7 @@
 	}];
 
 var web3 = parent.web3;
-var doug = web3.eth.contract("0x8a9e21408f5c4cd87f679060da05804f81a2165d", DOUG_ABI);
+var doug = web3.eth.contract("0x0eb790b677a2a55280862def1a20d54406b7cd26", DOUG_ABI);
 
 var fm = web3.eth.contract(gfd("fundmanager"),FM_ABI);
 var permsdb = web3.eth.contract(gfd("permsdb"),PERMS_DB_ABI);
@@ -195,7 +195,7 @@ function withdraw(){
 	var val = document.getElementById("waF").value;
 	console.log(val);
 	fm._isTransact = true;
-	val = parseInt(val,16);
+	val = parseInt(val,10);
 	fm.withdraw(val);
 }
 

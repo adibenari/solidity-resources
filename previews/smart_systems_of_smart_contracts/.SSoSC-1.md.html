@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>/home/androlo/go/src/github.com/eris-ltd/solidity-resources/published/smart_systems_of_smart_contracts/Part-1/.SSoSC-1.md.html</title>
+<title>/home/androlo/go/src/github.com/eris-ltd/solidity-resources/published/smart_systems_of_smart_contracts/.SSoSC-1.md.html</title>
 
 
 <style type="text/css">
@@ -642,7 +642,7 @@ function setDocumentScrollTop(ypos)
 <h2> <a id="user-content-smart-systems-of-smart-contracts" class="anchor" href="#smart-systems-of-smart-contracts" aria-hidden="true"><span class="octicon octicon-link"></span></a>Smart systems of smart contracts</h2> 
 <p><strong>Part 1: The five type model</strong></p> 
 <p><em>By: Andreas Olofsson (<a href="mailto:andreas@erisindustries.com">andreas@erisindustries.com</a>)</em></p> 
-<p><strong>Note: When writing this - Feb 2nd, 2015 - Solidity is still under heavy development, which means running the actual code is hard, and since it's on dev it cannot be assumed to be stable. I still chose Solidity because it is becoming the next big language, and it is clean enough to make for good &quot;pseudo code&quot; as well.</strong></p> 
+<p>(Note: When writing this - Feb 2nd, 2015 - Solidity is still under heavy development, which means running the actual code is hard, and since it's on dev it cannot be assumed to be stable). I still chose Solidity as that is becoming the next big language, and it is clean enough to make for good &quot;pseudo code&quot; as well.</p> 
 <h3> <a id="user-content-introduction" class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h3> 
 <p>This is an introduction to systems of smart contracts. The purpose of these documents is to teach methods of writing large, scalable smart contract back-ends for distributed applications. The reader should be familiar with the basics of smart contract writing, and they should know what accounts, contracts and transactions are, and how to work with them. A good introduction to Ethereum development (and a must-read) can be found <a href="https://github.com/ethereum/wiki/wiki/Ethereum-Development-Tutorial">here</a>. </p> 
 <p>The example code in this document is written in the new Solidity language. The official tutorial can be found <a href="https://github.com/ethereum/wiki/wiki/Solidity-Tutorial">here</a>. This language is not production ready, but most of the basic features are in place and contracts can be compiled and run in live systems. If you want to start developing with Solidity, which I recommend, you should check out the <a href="https://github.com/ethereum/wiki/wiki/Solidity-Features">features document</a>. It is being updated continuously, and shows when new features are added, and is less technical the the information found in the <a href="https://www.pivotaltracker.com/n/projects/1189488">pivotal tracker</a>.</p> 
@@ -1239,25 +1239,314 @@ contract DougEnabled {
 }</pre>
 </div> 
 <p>Controllers would use Doug to check to make sure the caller is &quot;fundmanager&quot;, and it would also use Doug to get the address to the respecive database to do reads, and the fundmanager would use Doug to get the address to the bank and permission controllers. Also, again - using this CMC would be somewhat like craming everything into the global namespace. There is no real structure which is usually wrong but this is a small system and we want to keep things simple. In most systems you'd have more then one CMC and also more advanced CMC logic.</p> 
-<h3> <a id="user-content-the-finished-system" class="anchor" href="#the-finished-system" aria-hidden="true"><span class="octicon octicon-link"></span></a>The finished system</h3> 
-<p>The contracts and javascript can be found in the <code>resources</code>folder. I would suggest using the AlethZero client when working with the contracts. This is how this system would be deployed:</p> 
-<p>1) Deploy Doug, keep track of its address.</p> 
-<p>2) Deploy all the other contracts (doesn't matter in which order it's done), keep track of their addresses.</p> 
-<p>3) Modify the doug address in <code>fundman.html</code>file. It's the line <code>var doug = web3.eth.contract(&quot;0x?????&quot;, DOUG_ABI)</code>. Don't forget the '0x' in front of the address. </p> 
-<p>4) Load the html file in the aleth browser. </p> 
-<p>5) Use the 'Add To Doug' button to register the contracts under the following names (which is also their file names):</p> 
-<ul> 
- <li>'permsdb' : the permissions database</li> 
- <li>'perms' : the permissions controller</li> 
- <li>'bankdb' : the bank database</li> 
- <li>'bank' : the bank controller</li> 
- <li>'fundmanager' : the fund manager</li> 
-</ul> 
-<p>This can be done by adding the name in the 'Name' field, then the address (with a 0x in front) in the 'Contract Address' field.</p> 
-<p>6) Reload the browser window from the right-click menu.</p> 
-<p>7) Set your own permission to 1.</p> 
-<p>8) Start banking.</p> 
-<p>Note: You can add other accounts as well, and add permissions to them etc.</p> 
+<h3> <a id="user-content-the-finished-contracts" class="anchor" href="#the-finished-contracts" aria-hidden="true"><span class="octicon octicon-link"></span></a>The finished contracts</h3> 
+<p>This is all the contracts in their final form. </p> 
+<div class="highlight highlight-javascript">
+ <pre>
+<span class="pl-c">// Base class for contracts that are used in a doug system.</span>
+contract DougEnabled {
+    address DOUG;
+
+    <span class="pl-st">function</span> <span class="pl-en">setDougAddress</span>(<span class="pl-vpf">address</span> dougAddr) returns (bool result){
+        <span class="pl-c">// Once the doug address is set, don't allow it to be set again, except by the</span>
+        <span class="pl-c">// doug contract itself.</span>
+        <span class="pl-k">if</span>(DOUG <span class="pl-k">!=</span> <span class="pl-c1">0x0</span> <span class="pl-k">&amp;&amp;</span> dougAddr <span class="pl-k">!=</span> DOUG){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        DOUG <span class="pl-k">=</span> dougAddr;
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;    
+    }
+
+    <span class="pl-c">// Makes it so that Doug is the only contract that may kill it.</span>
+    <span class="pl-st">function</span> <span class="pl-en">remove</span>(){
+        <span class="pl-k">if</span>(msg.sender <span class="pl-k">==</span> DOUG){
+            suicide(DOUG);
+        }
+    }
+
+}
+
+<span class="pl-c">// The Doug contract.</span>
+contract Doug {
+
+    address owner;
+
+    <span class="pl-c">// This is where we keep all the contracts.</span>
+    mapping (string32 <span class="pl-k">=&gt;</span> address) <span class="pl-s">public</span> contracts;
+
+    <span class="pl-c">// Constructor</span>
+    <span class="pl-st">function</span> <span class="pl-en">Doug</span>(){
+        owner <span class="pl-k">=</span> msg.sender;
+    }
+
+    <span class="pl-c">// Add a new contract to Doug. This will overwrite an existing contract.</span>
+    <span class="pl-st">function</span> <span class="pl-en">addContract</span>(<span class="pl-vpf">string32</span> name, <span class="pl-vpf">address</span> addr) constant returns (bool result) {
+        <span class="pl-k">if</span>(msg.sender <span class="pl-k">!=</span> owner){
+            <span class="pl-k">return</span>;
+        }
+        DougEnabled de <span class="pl-k">=</span> DougEnabled(addr);
+        <span class="pl-c">// Don't add the contract if this does not work.</span>
+        <span class="pl-k">if</span>(<span class="pl-k">!</span>de.setDougAddress(address(<span class="pl-v">this</span>))) {
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        contracts[name] <span class="pl-k">=</span> addr;
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+
+    <span class="pl-c">// Remove a contract from Doug. We could also suicide if we want to.</span>
+    <span class="pl-st">function</span> <span class="pl-en">removeContract</span>(<span class="pl-vpf">string32</span> name) constant returns (bool result) {
+        <span class="pl-k">if</span> (contracts[name] <span class="pl-k">==</span> <span class="pl-c1">0x0</span>){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        <span class="pl-k">if</span>(msg.sender <span class="pl-k">!=</span> owner){
+            <span class="pl-k">return</span>;
+        }
+        contracts[name] <span class="pl-k">=</span> <span class="pl-c1">0x0</span>;
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+
+    <span class="pl-st">function</span> <span class="pl-en">remove</span>(){
+
+        <span class="pl-k">if</span>(msg.sender <span class="pl-k">==</span> owner){
+
+            address fm <span class="pl-k">=</span> contracts[<span class="pl-s1"><span class="pl-pds">&quot;</span>fundmanager<span class="pl-pds">&quot;</span></span>];
+            address perms <span class="pl-k">=</span> contracts[<span class="pl-s1"><span class="pl-pds">&quot;</span>perms<span class="pl-pds">&quot;</span></span>];
+            address permsdb <span class="pl-k">=</span> contracts[<span class="pl-s1"><span class="pl-pds">&quot;</span>permsdb<span class="pl-pds">&quot;</span></span>];
+            address bank <span class="pl-k">=</span> contracts[<span class="pl-s1"><span class="pl-pds">&quot;</span>bank<span class="pl-pds">&quot;</span></span>];
+            address bankdb <span class="pl-k">=</span> contracts[<span class="pl-s1"><span class="pl-pds">&quot;</span>bankdb<span class="pl-pds">&quot;</span></span>];
+
+            <span class="pl-c">// Remove everything.</span>
+            <span class="pl-k">if</span>(fm <span class="pl-k">!=</span> <span class="pl-c1">0x0</span>){ DougEnabled(fm).<span class="pl-s3">remove</span>(); }
+            <span class="pl-k">if</span>(perms <span class="pl-k">!=</span> <span class="pl-c1">0x0</span>){ DougEnabled(perms).<span class="pl-s3">remove</span>(); }
+            <span class="pl-k">if</span>(permsdb <span class="pl-k">!=</span> <span class="pl-c1">0x0</span>){ DougEnabled(permsdb).<span class="pl-s3">remove</span>(); }
+            <span class="pl-k">if</span>(bank <span class="pl-k">!=</span> <span class="pl-c1">0x0</span>){ DougEnabled(bank).<span class="pl-s3">remove</span>(); }
+            <span class="pl-k">if</span>(bankdb <span class="pl-k">!=</span> <span class="pl-c1">0x0</span>){ DougEnabled(bankdb).<span class="pl-s3">remove</span>(); }
+
+            <span class="pl-c">// Finally, remove doug. Doug will now have all the funds of the other contracts, </span>
+            <span class="pl-c">// and when suiciding it will all go to the owner.</span>
+            suicide(owner);
+        }
+    }
+
+}
+
+<span class="pl-c">// Interface for getting contracts from Doug</span>
+contract ContractProvider {
+    <span class="pl-st">function</span> <span class="pl-en">contracts</span>(<span class="pl-vpf">string32</span> name) returns (address addr) {} 
+}
+
+<span class="pl-c">// Base class for contracts that only allow the fundmanager to call them.</span>
+<span class="pl-c">// Note that it inherits from DougEnabled</span>
+contract FundManagerEnabled is DougEnabled {
+
+    <span class="pl-c">// Makes it easier to check that fundmanager is the caller.</span>
+    <span class="pl-st">function</span> <span class="pl-en">isFundManager</span>() constant returns (bool) {
+        <span class="pl-k">if</span>(DOUG <span class="pl-k">!=</span> <span class="pl-c1">0x0</span>){
+            address fm <span class="pl-k">=</span> ContractProvider(DOUG).contracts(<span class="pl-s1"><span class="pl-pds">&quot;</span>fundmanager<span class="pl-pds">&quot;</span></span>);
+            <span class="pl-k">return</span> msg.sender <span class="pl-k">==</span> fm;
+        }
+        <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+    }
+}
+
+<span class="pl-c">// Permissions database</span>
+contract PermissionsDb is DougEnabled {
+
+    mapping (address <span class="pl-k">=&gt;</span> uint8) <span class="pl-s">public</span> perms;
+
+    <span class="pl-c">// Set the permissions of an account.</span>
+    <span class="pl-st">function</span> <span class="pl-en">setPermission</span>(<span class="pl-vpf">address</span> addr, <span class="pl-vpf">uint8</span> perm) constant returns (bool res) {
+        <span class="pl-k">if</span>(DOUG <span class="pl-k">!=</span> <span class="pl-c1">0x0</span>){
+            address permC <span class="pl-k">=</span> ContractProvider(DOUG).contracts(<span class="pl-s1"><span class="pl-pds">&quot;</span>perms<span class="pl-pds">&quot;</span></span>);
+            <span class="pl-k">if</span> (msg.sender <span class="pl-k">==</span> permC ){
+                perms[addr] <span class="pl-k">=</span> perm;
+                <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+            }
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        } <span class="pl-k">else</span> {
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+    }
+
+}
+
+<span class="pl-c">// Permissions</span>
+contract Permissions is FundManagerEnabled {
+
+    <span class="pl-c">// Set the permissions of an account.</span>
+    <span class="pl-st">function</span> <span class="pl-en">setPermission</span>(<span class="pl-vpf">address</span> addr, <span class="pl-vpf">uint8</span> perm) constant returns (bool res) {
+        <span class="pl-k">if</span> (<span class="pl-k">!</span>isFundManager()){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        address permdb <span class="pl-k">=</span> ContractProvider(DOUG).contracts(<span class="pl-s1"><span class="pl-pds">&quot;</span>permsdb<span class="pl-pds">&quot;</span></span>);
+        <span class="pl-k">if</span> ( permdb <span class="pl-k">==</span> <span class="pl-c1">0x0</span> ) {
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        <span class="pl-k">return</span> PermissionsDb(permdb).setPermission(addr, perm);
+    }
+
+}
+
+<span class="pl-c">// The bank database</span>
+contract BankDb is DougEnabled {
+
+    mapping (address <span class="pl-k">=&gt;</span> uint) <span class="pl-s">public</span> balances;
+
+    <span class="pl-st">function</span> <span class="pl-en">deposit</span>(<span class="pl-vpf">address</span> addr) constant returns (bool res) {
+        <span class="pl-k">if</span>(DOUG <span class="pl-k">!=</span> <span class="pl-c1">0x0</span>){
+            address bank <span class="pl-k">=</span> ContractProvider(DOUG).contracts(<span class="pl-s1"><span class="pl-pds">&quot;</span>bank<span class="pl-pds">&quot;</span></span>);
+            <span class="pl-k">if</span> (msg.sender <span class="pl-k">==</span> bank ){
+                balances[addr] <span class="pl-k">+=</span> msg.<span class="pl-sc">value</span>;
+                <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+            }
+        }
+        <span class="pl-c">// Return if deposit cannot be made.</span>
+        msg.sender.<span class="pl-s3">send</span>(msg.<span class="pl-sc">value</span>);
+        <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+    }
+
+    <span class="pl-st">function</span> <span class="pl-en">withdraw</span>(<span class="pl-vpf">address</span> addr, <span class="pl-vpf">uint</span> amount) constant returns (bool res) {
+        <span class="pl-k">if</span>(DOUG <span class="pl-k">!=</span> <span class="pl-c1">0x0</span>){
+            address bank <span class="pl-k">=</span> ContractProvider(DOUG).contracts(<span class="pl-s1"><span class="pl-pds">&quot;</span>bank<span class="pl-pds">&quot;</span></span>);
+            <span class="pl-k">if</span> (msg.sender <span class="pl-k">==</span> bank ){
+                uint oldBalance <span class="pl-k">=</span> balances[addr];
+                <span class="pl-k">if</span>(oldBalance <span class="pl-k">&gt;=</span> amount){
+                    msg.sender.<span class="pl-s3">send</span>(amount);
+                    balances[addr] <span class="pl-k">=</span> oldBalance <span class="pl-k">-</span> amount;
+                    <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+                }
+            }
+        }
+        <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+    }
+
+}
+
+<span class="pl-c">// The bank</span>
+contract Bank is FundManagerEnabled {
+
+    <span class="pl-c">// Attempt to withdraw the given 'amount' of Ether from the account.</span>
+    <span class="pl-st">function</span> <span class="pl-en">deposit</span>(<span class="pl-vpf">address</span> userAddr) constant returns (bool res) {
+        <span class="pl-k">if</span> (<span class="pl-k">!</span>isFundManager()){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        address bankdb <span class="pl-k">=</span> ContractProvider(DOUG).contracts(<span class="pl-s1"><span class="pl-pds">&quot;</span>bankdb<span class="pl-pds">&quot;</span></span>);
+        <span class="pl-k">if</span> ( bankdb <span class="pl-k">==</span> <span class="pl-c1">0x0</span> ) {
+            <span class="pl-c">// If the user sent money, we should return it if we can't deposit.</span>
+            msg.sender.<span class="pl-s3">send</span>(msg.<span class="pl-sc">value</span>);
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+
+        <span class="pl-c">// Use the interface to call on the bank contract. We pass msg.value along as well.</span>
+        bool success <span class="pl-k">=</span> BankDb(bankdb).deposit.<span class="pl-sc">value</span>(msg.<span class="pl-sc">value</span>)(userAddr);
+
+        <span class="pl-c">// If the transaction failed, return the Ether to the caller.</span>
+        <span class="pl-k">if</span> (<span class="pl-k">!</span>success) {
+            msg.sender.<span class="pl-s3">send</span>(msg.<span class="pl-sc">value</span>);
+        }
+        <span class="pl-k">return</span> success;
+    }
+
+    <span class="pl-c">// Attempt to withdraw the given 'amount' of Ether from the account.</span>
+    <span class="pl-st">function</span> <span class="pl-en">withdraw</span>(<span class="pl-vpf">address</span> userAddr, <span class="pl-vpf">uint</span> amount) constant returns (bool res) {
+        <span class="pl-k">if</span> (<span class="pl-k">!</span>isFundManager()){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        address bankdb <span class="pl-k">=</span> ContractProvider(DOUG).contracts(<span class="pl-s1"><span class="pl-pds">&quot;</span>bankdb<span class="pl-pds">&quot;</span></span>);
+        <span class="pl-k">if</span> ( bankdb <span class="pl-k">==</span> <span class="pl-c1">0x0</span> ) {
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+
+        <span class="pl-c">// Use the interface to call on the bank contract.</span>
+        bool success <span class="pl-k">=</span> BankDb(bankdb).withdraw(userAddr, amount);
+
+        <span class="pl-c">// If the transaction succeeded, pass the Ether on to the caller.</span>
+        <span class="pl-k">if</span> (success) {
+            userAddr.<span class="pl-s3">send</span>(amount);
+        }
+        <span class="pl-k">return</span> success;
+    }
+
+}
+
+<span class="pl-c">// The fund manager</span>
+contract FundManager is DougEnabled {
+
+    <span class="pl-c">// We still want an owner.</span>
+    address owner;
+
+    <span class="pl-c">// Constructor</span>
+    <span class="pl-st">function</span> <span class="pl-en">FundManager</span>(){
+        owner <span class="pl-k">=</span> msg.sender;
+    }
+
+    <span class="pl-c">// Attempt to withdraw the given 'amount' of Ether from the account.</span>
+    <span class="pl-st">function</span> <span class="pl-en">deposit</span>() constant returns (bool res) {
+        <span class="pl-k">if</span> (msg.<span class="pl-sc">value</span> <span class="pl-k">==</span> <span class="pl-c1">0</span>){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        address bank <span class="pl-k">=</span> ContractProvider(DOUG).contracts(<span class="pl-s1"><span class="pl-pds">&quot;</span>bank<span class="pl-pds">&quot;</span></span>);
+        address permsdb <span class="pl-k">=</span> ContractProvider(DOUG).contracts(<span class="pl-s1"><span class="pl-pds">&quot;</span>permsdb<span class="pl-pds">&quot;</span></span>);
+        <span class="pl-k">if</span> ( bank <span class="pl-k">==</span> <span class="pl-c1">0x0</span> <span class="pl-k">||</span> permsdb <span class="pl-k">==</span> <span class="pl-c1">0x0</span> <span class="pl-k">||</span> PermissionsDb(permsdb).perms(msg.sender) <span class="pl-k">&lt;</span> <span class="pl-c1">1</span>) {
+            <span class="pl-c">// If the user sent money, we should return it if we can't deposit.</span>
+            msg.sender.<span class="pl-s3">send</span>(msg.<span class="pl-sc">value</span>);
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+
+        <span class="pl-c">// Use the interface to call on the bank contract. We pass msg.value along as well.</span>
+        bool success <span class="pl-k">=</span> Bank(bank).deposit.<span class="pl-sc">value</span>(msg.<span class="pl-sc">value</span>)(msg.sender);
+
+        <span class="pl-c">// If the transaction failed, return the Ether to the caller.</span>
+        <span class="pl-k">if</span> (<span class="pl-k">!</span>success) {
+            msg.sender.<span class="pl-s3">send</span>(msg.<span class="pl-sc">value</span>);
+        }
+        <span class="pl-k">return</span> success;
+    }
+
+    <span class="pl-c">// Attempt to withdraw the given 'amount' of Ether from the account.</span>
+    <span class="pl-st">function</span> <span class="pl-en">withdraw</span>(<span class="pl-vpf">uint</span> amount) constant returns (bool res) {
+        <span class="pl-k">if</span> (amount <span class="pl-k">==</span> <span class="pl-c1">0</span>){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        address bank <span class="pl-k">=</span> ContractProvider(DOUG).contracts(<span class="pl-s1"><span class="pl-pds">&quot;</span>bank<span class="pl-pds">&quot;</span></span>);
+        address permsdb <span class="pl-k">=</span> ContractProvider(DOUG).contracts(<span class="pl-s1"><span class="pl-pds">&quot;</span>permsdb<span class="pl-pds">&quot;</span></span>);
+        <span class="pl-k">if</span> ( bank <span class="pl-k">==</span> <span class="pl-c1">0x0</span> <span class="pl-k">||</span> permsdb <span class="pl-k">==</span> <span class="pl-c1">0x0</span> <span class="pl-k">||</span> PermissionsDb(permsdb).perms(msg.sender) <span class="pl-k">&lt;</span> <span class="pl-c1">1</span>) {
+            <span class="pl-c">// If the user sent money, we should return it if we can't deposit.</span>
+            msg.sender.<span class="pl-s3">send</span>(msg.<span class="pl-sc">value</span>);
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+
+        <span class="pl-c">// Use the interface to call on the bank contract.</span>
+        bool success <span class="pl-k">=</span> Bank(bank).withdraw(msg.sender, amount);
+
+        <span class="pl-c">// If the transaction succeeded, pass the Ether on to the caller.</span>
+        <span class="pl-k">if</span> (success) {
+            msg.sender.<span class="pl-s3">send</span>(amount);
+        }
+        <span class="pl-k">return</span> success;
+    }
+
+    <span class="pl-c">// Set the permissions for a given address.</span>
+    <span class="pl-st">function</span> <span class="pl-en">setPermission</span>(<span class="pl-vpf">address</span> addr, <span class="pl-vpf">uint8</span> permLvl) constant returns (bool res) {
+        <span class="pl-k">if</span> (msg.sender <span class="pl-k">!=</span> owner){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        address perms <span class="pl-k">=</span> ContractProvider(DOUG).contracts(<span class="pl-s1"><span class="pl-pds">&quot;</span>perms<span class="pl-pds">&quot;</span></span>);
+        <span class="pl-k">if</span> ( perms <span class="pl-k">==</span> <span class="pl-c1">0x0</span> ) {
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        <span class="pl-k">return</span> Permissions(perms).setPermission(addr,permLvl);
+    }
+
+}
+</pre>
+</div> 
+<h3> <a id="user-content-usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h3> 
+<p>This is how this system would be deployed:</p> 
+<p>1) Deploy Doug.</p> 
+<p>2) Deploy all the other contracts (doesn't matter in which order it's done), register them with Doug.</p> 
+<p>3) Optionally, call the fundmanager to set your own permission to 1.</p> 
+<p>To run the system, just add permissions for people and start sending money to the fund manager.</p> 
 <h3> <a id="user-content-extending-the-system" class="anchor" href="#extending-the-system" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extending the system</h3> 
 <p>If we want to add more banks to the system we could do that. The Doug contract makes it easy to add and remove contracts. We could also extend the already existing code quite easily - even when the system is running. Let's say we want to add logging to the bank. The idea is that a short log entry should be written when someone makes a deposit or withdrawal. The entry should contain the transaction type (deposit or withdraw), the amount of Ether, and the timestamp. How would we do that? </p> 
 <p>In this system it would be simple. Trivial even. This is how we could do it:</p> 
@@ -1308,18 +1597,16 @@ contract DougEnabled {
     <span class="pl-k">return</span> pc.setPermission(addr, permLvl);
 }</pre>
 </div> 
-<p>Also, as we talked about before, what if we want to add more types of banks? That is not hard. We could choose to do it in several ways. One way would be to add many databases and update the bank controller into one that handles multiple databases. We could just give the databases different names in DOUG and make sure the controller knows who they are. Another way of doing it would be to add more banks. There could be several &quot;full&quot; banks, with both controllers and databases. Doug has room for them all. </p> 
-<p>The fundmanager would also have to be updated of course, but that is not a problem. With a system like this, it is very easy to make updates, but at the same time it is easy to fall into traps. If we were to add a bunch of contracts to this system, for example, we would run into problems because DOUG is not designed to get rid of them. Its remove function only kills the current ones. Even though it is an extendible system in theory, that does not mean all contracts automatically supports updates.</p> 
 <h3> <a id="user-content-cost-benefit-analysis" class="anchor" href="#cost-benefit-analysis" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cost benefit analysis</h3> 
 <p>Given all of the extra contracts and indirection that's needed, we may ask if it's even worth doing. For example, if all I want to do is to deposit some money, why do i have to call one contract that calls a second contract that calls a third one, also doing calls to a fourth one all the way? </p> 
-<p>There are some things to consider when deciding how the system should be designed. Modularity is good, but it comes with a price. All this indirection means more calls and more processing, which means the cost for executing the code is higher, and the added bytecode makes the system more bulky. Maybe the system needs to be extremely flexible. Maybe a highly extendible system can be built as a test, using a model like this, but when the system and its components are getting stable and it's clear what it should be doing, then switch to a simpler one. It all depends. </p> 
-<p>There is also the matter of trust, but I treat that in the beginning of the document.</p> 
+<p>There are some things to consider when deciding how the system should be designed. Modularity is good, but it comes with a price. All this indirection means more calls and more processing, which means the cost for executing the code is higher, and the added bytecode makes the system more bulky. </p> 
+<p>There is also the matter of trust, but I treat that in the beginning of the document. </p> 
 <h3> <a id="user-content-coming-next" class="anchor" href="#coming-next" aria-hidden="true"><span class="octicon octicon-link"></span></a>Coming next</h3> 
 <p>This is the plan as it stands now.</p> 
 <p>In part 2 we will look at an architecture that is more general then the one we created here. I call it an &quot;action driven architecture&quot;, and it is based on the architecture I used for &quot;The People's Republic of Doug&quot;. This will be published fairly soon, as most of it is already written.</p> 
 <p>Part 3 will contain an analysis of the example system using the five types model. This is a small part, and has also largely been written.</p> 
 <p>Part 4 will contain some more in-depth material on systems, and a few techniques for circumventing bad setups after the contracts has already been put in place.</p> 
-<p>Part 5 will be about working with smart contract systems that drive regular web applications. We will look at a normal web application using a RESTful API, and see how we can mold the smart contract back-end to fit the system as a whole.</p> 
+<p>Part 5 will be about working with smart contract systems that drive regular web applications. We will look at a normal web application using a RESTful API, and see how we can mold the smart contract back-end to fit the system as a whole. It is mostly just a matter of how we structure the data, but it's very important.</p> 
 <p>In part 6 we will put together a small toolkit for designing smart contract systems. There will be some basic utility contracts written in Solidity, a few cheet-sheats, a more evolved model then &quot;the five types&quot; for analysis, and also a better system for doing permissions/dependency mapping.</p> 
 <p>These documents, in addition to any more parts that might be added, will be used as the basis of a proper book on this subject.</p>
 </body>

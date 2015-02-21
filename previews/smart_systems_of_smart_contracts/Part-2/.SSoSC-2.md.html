@@ -1,0 +1,1564 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>/home/androlo/go/src/github.com/eris-ltd/solidity-resources/previews/smart_systems_of_smart_contracts/Part-2/.SSoSC-2.md.html</title>
+
+
+<style type="text/css">
+body {
+	color: #333;
+	font: 13px/1.4 "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
+	padding: 0;
+	margin: 0;
+}
+
+a {
+	background: transparent;
+	color: #4183c4;
+	text-decoration: none;
+}
+
+a:active,
+a:hover {
+	outline: 0 none;
+	text-decoration: underline;
+}
+
+abbr[title] {
+	border-bottom: 1px dotted;
+}
+
+b,
+strong {
+	font-weight: bold;
+}
+
+dfn {
+	font-style: italic;
+}
+h1 {
+	font-size: 2em;
+	margin: 0.67em 0;
+}
+mark {
+	background: #ff0;
+	color: #000;
+}
+small {
+	font-size: 80%;
+}
+sub, sup {
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+sup {
+	top: -0.5em;
+}
+sub {
+	bottom: -0.25em;
+}
+img {
+	border: 0 none;
+}
+svg:not(:root) {
+	overflow: hidden;
+}
+figure {
+	margin: 1em 40px;
+}
+hr {
+	box-sizing: content-box;
+	height: 0;
+}
+
+code,
+kbd,
+pre,
+samp {
+	font-family: monospace,monospace;
+	font-size: 1em;
+}
+
+pre {
+	overflow: auto;
+	font: 12px Consolas,"Liberation Mono",Menlo,Courier,monospace;
+	margin-bottom: 0;
+	margin-top: 0;
+}
+
+.markdown-body {
+	padding: 30px;
+	font-size: 16px;
+	line-height: 1.6;
+	word-wrap: break-word;
+}
+
+.markdown-body>*:first-child {
+	margin-top: 0 !important;
+}
+
+.markdown-body>*:last-child {
+	margin-bottom: 0 !important;
+}
+
+.markdown-body .absent {
+	color: #c00;
+}
+
+.markdown-body .anchor {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	display: block;
+	padding-right: 6px;
+	padding-left: 30px;
+	margin-left: -30px;
+}
+
+.markdown-body .anchor:focus {
+	outline: none;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+	position: relative;
+	margin-top: 1em;
+	margin-bottom: 16px;
+	font-weight: bold;
+	line-height: 1.4;
+}
+
+.markdown-body h1 .octicon-link,
+.markdown-body h2 .octicon-link,
+.markdown-body h3 .octicon-link,
+.markdown-body h4 .octicon-link,
+.markdown-body h5 .octicon-link,
+.markdown-body h6 .octicon-link {
+	display: none;
+	color: #000;
+	vertical-align: middle;
+}
+
+.markdown-body h1:hover .anchor,
+.markdown-body h2:hover .anchor,
+.markdown-body h3:hover .anchor,
+.markdown-body h4:hover .anchor,
+.markdown-body h5:hover .anchor,
+.markdown-body h6:hover .anchor {
+	padding-left: 8px;
+	margin-left: -30px;
+	line-height: 1;
+	text-decoration: none;
+}
+
+.markdown-body h1:hover .anchor .octicon-link,
+.markdown-body h2:hover .anchor .octicon-link,
+.markdown-body h3:hover .anchor .octicon-link,
+.markdown-body h4:hover .anchor .octicon-link,
+.markdown-body h5:hover .anchor .octicon-link,
+.markdown-body h6:hover .anchor .octicon-link {
+	display: inline-block;
+}
+
+.markdown-body h1 tt,
+.markdown-body h1 code,
+.markdown-body h2 tt,
+.markdown-body h2 code,
+.markdown-body h3 tt,
+.markdown-body h3 code,
+.markdown-body h4 tt,
+.markdown-body h4 code,
+.markdown-body h5 tt,
+.markdown-body h5 code,
+.markdown-body h6 tt,
+.markdown-body h6 code {
+	font-size: inherit;
+}
+
+.markdown-body h1 {
+	padding-bottom: 0.3em;
+	font-size: 2.25em;
+	line-height: 1.2;
+	border-bottom: 1px solid #eee;
+}
+
+.markdown-body h2 {
+	padding-bottom: 0.3em;
+	font-size: 1.75em;
+	line-height: 1.225;
+	border-bottom: 1px solid #eee;
+}
+
+.markdown-body h3 {
+	font-size: 1.5em;
+	line-height: 1.43;
+}
+
+.markdown-body h4 {
+	font-size: 1.25em;
+}
+
+.markdown-body h5 {
+	font-size: 1em;
+}
+
+.markdown-body h6 {
+	font-size: 1em;
+	color: #777;
+}
+
+.markdown-body p,.markdown-body blockquote,
+.markdown-body ul,.markdown-body ol,
+.markdown-body dl,.markdown-body table,
+.markdown-body pre {
+	margin-top: 0;
+	margin-bottom: 16px;
+}
+
+.markdown-body hr {
+	height: 4px;
+	padding: 0;
+	margin: 16px 0;
+	background-color: #e7e7e7;
+	border: 0 none;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+	padding-left: 2em;
+}
+
+.markdown-body ul.no-list,
+.markdown-body ol.no-list {
+	padding: 0;
+	list-style-type: none;
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ol,
+.markdown-body ol ul {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.markdown-body li>p {
+	margin-top: 16px;
+}
+
+.markdown-body dl {
+	padding: 0;
+}
+
+.markdown-body dl dt {
+	padding: 0;
+	margin-top: 16px;
+	font-size: 1em;
+	font-style: italic;
+	font-weight: bold;
+}
+
+.markdown-body dl dd {
+	padding: 0 16px;
+	margin-bottom: 16px;
+}
+
+.markdown-body blockquote {
+	padding: 0 15px;
+	color: #777;
+	border-left: 4px solid #ddd;
+}
+
+.markdown-body blockquote>:first-child {
+	margin-top: 0;
+}
+
+.markdown-body blockquote>:last-child {
+	margin-bottom: 0;
+}
+
+.markdown-body table {
+	display: block;
+	width: 100%;
+	overflow: auto;
+	word-break: normal;
+	word-break: keep-all;
+}
+
+.markdown-body table th {
+	font-weight: bold;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+	padding: 6px 13px;
+	border: 1px solid #ddd;
+}
+
+.markdown-body table tr {
+	background-color: #fff;
+	border-top: 1px solid #ccc;
+}
+
+.markdown-body table tr:nth-child(2n) {
+	background-color: #f8f8f8;
+}
+
+.markdown-body img {
+	max-width: 100%;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.markdown-body span.frame {
+	display: block;
+	overflow: hidden;
+}
+
+.markdown-body span.frame>span {
+	display: block;
+	float: left;
+	width: auto;
+	padding: 7px;
+	margin: 13px 0 0;
+	overflow: hidden;
+	border: 1px solid #ddd;
+}
+
+.markdown-body span.frame span img {
+	display: block;
+	float: left;
+}
+
+.markdown-body span.frame span span {
+	display: block;
+	padding: 5px 0 0;
+	clear: both;
+	color: #333;
+}
+
+.markdown-body span.align-center {
+	display: block;
+	overflow: hidden;
+	clear: both;
+}
+
+.markdown-body span.align-center>span {
+	display: block;
+	margin: 13px auto 0;
+	overflow: hidden;
+	text-align: center;
+}
+
+.markdown-body span.align-center span img {
+	margin: 0 auto;
+	text-align: center;
+}
+
+.markdown-body span.align-right {
+	display: block;
+	overflow: hidden;
+	clear: both;
+}
+
+.markdown-body span.align-right>span {
+	display: block;
+	margin: 13px 0 0;
+	overflow: hidden;
+	text-align: right;
+}
+
+.markdown-body span.align-right span img {
+	margin: 0;
+	text-align: right;
+}
+
+.markdown-body span.float-left {
+	display: block;
+	float: left;
+	margin-right: 13px;
+	overflow: hidden;
+}
+
+.markdown-body span.float-left span {
+	margin: 13px 0 0;
+}
+
+.markdown-body span.float-right {
+	display: block;
+	float: right;
+	margin-left: 13px;
+	overflow: hidden;
+}
+
+.markdown-body span.float-right>span {
+	display: block;
+	margin: 13px auto 0;
+	overflow: hidden;
+	text-align: right;
+}
+
+.markdown-body code,.markdown-body tt {
+	padding: 0;
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
+	margin: 0;
+	font-size: 85%;
+	background-color: rgba(0,0,0,0.04);
+	border-radius: 3px;
+}
+
+.markdown-body code:before,
+.markdown-body code:after,
+.markdown-body tt:before,
+.markdown-body tt:after {
+	letter-spacing: -0.2em;
+	content: "\00a0";
+}
+
+.markdown-body code br,
+.markdown-body tt br {
+	display: none;
+}
+
+.markdown-body del code {
+	text-decoration: inherit;
+}
+
+.markdown-body pre>code {
+	padding: 0;
+	margin: 0;
+	font-size: 100%;
+	word-break: normal;
+	white-space: pre;
+	background: transparent;
+	border: 0;
+}
+
+.markdown-body .highlight {
+	margin-bottom: 16px;
+}
+
+.markdown-body .highlight pre,
+.markdown-body pre {
+	padding: 16px;
+	overflow: auto;
+	font-size: 85%;
+	line-height: 1.45;
+	background-color: #f7f7f7;
+	border-radius: 3px;
+}
+
+.markdown-body .highlight pre {
+	margin-bottom: 0;
+	word-break: normal;
+}
+
+.markdown-body pre {
+	word-wrap: normal;
+}
+
+.markdown-body pre code,
+.markdown-body pre tt {
+	display: inline;
+	max-width: initial;
+	padding: 0;
+	margin: 0;
+	overflow: initial;
+	line-height: inherit;
+	word-wrap: normal;
+	background-color: transparent;
+	border: 0;
+}
+
+.markdown-body pre code:before,
+.markdown-body pre code:after,
+.markdown-body pre tt:before,
+.markdown-body pre tt:after {
+	content: normal;
+}
+
+.highlight .pl-coc,
+.highlight .pl-entl,
+.highlight .pl-entm,
+.highlight .pl-eoa,
+.highlight .pl-mai .pl-sf,
+.highlight .pl-mm,
+.highlight .pl-pdv,
+.highlight .pl-sc,
+.highlight .pl-som,
+.highlight .pl-sr,
+.highlight .pl-v,
+.highlight .pl-vpf {
+	color: #0086b3;
+}
+.highlight .pl-eoac,
+.highlight .pl-mdht,
+.highlight .pl-mi1,
+.highlight .pl-mri,
+.highlight .pl-va,
+.highlight .pl-vpu {
+	color: #008080;
+}
+.highlight .pl-c,
+.highlight .pl-pdc {
+	color: #b4b7b4;
+	font-style: italic;
+}
+.highlight .pl-k,
+.highlight .pl-ko,
+.highlight .pl-kolp,
+.highlight .pl-mc,
+.highlight .pl-mr,
+.highlight .pl-ms,
+.highlight .pl-s,
+.highlight .pl-sok,
+.highlight .pl-st {
+	color: #6e5494;
+}
+.highlight .pl-ef,
+.highlight .pl-enf,
+.highlight .pl-enm,
+.highlight .pl-entc,
+.highlight .pl-eoi,
+.highlight .pl-sf,
+.highlight .pl-smc {
+	color: #d12089;
+}
+.highlight .pl-ens,
+.highlight .pl-eoai,
+.highlight .pl-kos,
+.highlight .pl-mh .pl-pdh,
+.highlight .pl-mp,
+.highlight .pl-pde,
+.highlight .pl-stp {
+	color: #458;
+}
+.highlight .pl-enti {
+	color: #d12089;
+	font-weight: bold;
+}
+.highlight .pl-cce,
+.highlight .pl-enc,
+.highlight .pl-kou,
+.highlight .pl-mq {
+	color: #f93;
+}
+.highlight .pl-mp1 .pl-sf {
+	color: #458;
+	font-weight: bold;
+}
+.highlight .pl-cos,
+.highlight .pl-ent,
+.highlight .pl-md,
+.highlight .pl-mdhf,
+.highlight .pl-ml,
+.highlight .pl-pdc1,
+.highlight .pl-pds,
+.highlight .pl-s1,
+.highlight .pl-scp,
+.highlight .pl-sol {
+	color: #df5000;
+}
+.highlight .pl-c1,
+.highlight .pl-cn,
+.highlight .pl-pse,
+.highlight .pl-pse .pl-s2,
+.highlight .pl-vi {
+	color: #a31515;
+}
+.highlight .pl-mb,
+.highlight .pl-pdb {
+	color: #df5000;
+	font-weight: bold;
+}
+.highlight .pl-mi,
+.highlight .pl-pdi {
+	color: #6e5494;
+	font-style: italic;
+}
+.highlight .pl-ms1 {
+	background-color: #f5f5f5;
+}
+.highlight .pl-mdh,
+.highlight .pl-mdi {
+	font-weight: bold;
+}
+.highlight .pl-mdr {
+	color: #0086b3;
+	font-weight: bold;
+}
+.highlight .pl-s2 {
+	color: #333;
+}
+.highlight .pl-ii {
+	background-color: #df5000;
+	color: #fff;
+}
+.highlight .pl-ib {
+	background-color: #f93;
+}
+.highlight .pl-id {
+	background-color: #a31515;
+	color: #fff;
+}
+.highlight .pl-iu {
+	background-color: #b4b7b4;
+}
+.highlight .pl-mo {
+	color: #969896;
+}
+
+</style>
+
+
+<script type="text/javascript">
+
+function getDocumentScrollTop() 
+{
+   var res = document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset || 0;
+   // alert(res);
+   return res;
+}
+
+function setDocumentScrollTop(ypos) 
+{
+	window.scrollTo(0, ypos);
+}
+
+</script>
+
+
+</head>
+<body class="markdown-body">
+<h2> <a id="user-content-smart-systems-of-smart-contracts" class="anchor" href="#smart-systems-of-smart-contracts" aria-hidden="true"><span class="octicon octicon-link"></span></a>Smart systems of smart contracts</h2> 
+<p><strong>Part 2: An action driven architecture</strong></p> 
+<p><em>By: Andreas Olofsson (<a href="mailto:andreas@erisindustries.com">andreas@erisindustries.com</a>)</em></p> 
+<p>Here I'm going to propose an architecture that can be used for medium-sized and even large systems. It is scalable, secure, and it also has a massive proof-of-concept system behind it. This system is called The People's republic of Doug, and works somewhat like a government (<a href="https://github.com/androlo/EthereumContracts">https://github.com/androlo/EthereumContracts</a>). It has banking, citizenship/titles, voting, a forum, and other things. All in all it has about 70 unique contracts that are made up of about 20k lines of LLL contract code, and it ran on the early Ethereum test-chains.</p> 
+<h3> <a id="user-content-actions" class="anchor" href="#actions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Actions</h3> 
+<p>PRODOUG was made secure by encapsulating all the code that users could run in something called actions. All incoming transactions had to be on a specific format, and had to be send to the 'action manager' contract (except certain &quot;light&quot; transactions made to external services). Here's an example of how a super simple action interface could look in Solidity:</p> 
+<div class="highlight highlight-javascript">
+ <pre>contract SomeAction {
+    <span class="pl-st">function</span> <span class="pl-en">execute</span>(<span class="pl-vpf">type1</span> par1, <span class="pl-vpf">type2</span> par2, ....) constant <span class="pl-k">return</span> (bool result) {}
+}</pre>
+</div> 
+<p>The way you manage and call action contract is by keeping references to them in a manager contract:</p> 
+<div class="highlight highlight-javascript">
+ <pre><span class="pl-c">// Keep the interface here.</span>
+contract SomeAction {
+    <span class="pl-c">// This is used to carry out the action.</span>
+    <span class="pl-st">function</span> <span class="pl-en">execute</span>(<span class="pl-vpf">type1</span> par1, <span class="pl-vpf">type2</span> par2, ....) constant returns (bool ) {}
+}
+
+<span class="pl-c">// The action manager</span>
+contract ActionManager {
+
+    <span class="pl-c">// This is where we keep all the actions.</span>
+    mapping (string32 <span class="pl-k">=&gt;</span> address) actions;
+
+    <span class="pl-c">// Note: arrays cannot be function parameters yet.</span>
+    <span class="pl-st">function</span> <span class="pl-en">execute</span>(<span class="pl-vpf">string32</span> actionName, <span class="pl-vpf">bytes</span> data) constant returns (bool) {
+        address actn <span class="pl-k">=</span> actions[actionName];
+        <span class="pl-c">// If no action with the given name exists - cancel.</span>
+        <span class="pl-k">if</span> (actn <span class="pl-k">==</span> <span class="pl-c1">0x0</span>){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        <span class="pl-k">return</span> Action(actn).<span class="pl-s3">call</span>(data);
+    }
+
+    <span class="pl-c">// Add a new action.</span>
+    <span class="pl-st">function</span> <span class="pl-en">addAction</span>(<span class="pl-vpf">string32</span> name, <span class="pl-vpf">address</span> addr) {
+        actions[name] <span class="pl-k">=</span> addr;
+    }
+
+    <span class="pl-c">// Remove an action.</span>
+    <span class="pl-st">function</span> <span class="pl-en">removeAction</span>(<span class="pl-vpf">string32</span> name) constant returns (bool) {
+        <span class="pl-k">if</span> (actions[name] <span class="pl-k">==</span> <span class="pl-c1">0x0</span>){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        actions[name] <span class="pl-k">=</span> <span class="pl-c1">0x0</span>;
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+
+}</pre>
+</div> 
+<p>If you have read part 1, you'll notice notice that we're cheating here by adding the actions map to the action manager itself, which is wrong (and not how it's done in PRODOUG). The final contract version will delegate to a database contract. Also there's no real security yet, but at least we have a simple action system to start with. People can add actions to it, remove them, and execute them, but before we can add any actions to it we have to add another component - the top level CMC (contract managing contract, see part 1), or &quot;DOUG&quot;. Doug is the contract that keeps track of all other contracts in the system. We'll start with a namereg type contract similar to the one in part 1.</p> 
+<div class="highlight highlight-javascript">
+ <pre><span class="pl-c">// The Doug contract.</span>
+contract Doug {
+
+    address owner;
+
+    <span class="pl-c">// This is where we keep all the contracts.</span>
+    mapping (string32 <span class="pl-k">=&gt;</span> address) <span class="pl-s">public</span> contracts;
+
+    <span class="pl-c">// Constructor</span>
+    <span class="pl-st">function</span> <span class="pl-en">Doug</span>(){
+        owner <span class="pl-k">=</span> msg.sender;
+    }
+
+    <span class="pl-c">// Add a new contract to Doug. This will overwrite an existing contract.</span>
+    <span class="pl-st">function</span> <span class="pl-en">addContract</span>(<span class="pl-vpf">string32</span> name, <span class="pl-vpf">address</span> addr) constant returns (bool result) {
+        <span class="pl-k">if</span>(msg.sender <span class="pl-k">!=</span> owner){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        DougEnabled de <span class="pl-k">=</span> DougEnabled(addr);
+        <span class="pl-c">// Don't add the contract if this does not work.</span>
+        <span class="pl-k">if</span>(<span class="pl-k">!</span>de.setDougAddress(address(<span class="pl-v">this</span>))) {
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        contracts[name] <span class="pl-k">=</span> addr;
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+
+    <span class="pl-c">// Remove a contract from Doug. We could also suicide if we want to.</span>
+    <span class="pl-st">function</span> <span class="pl-en">removeContract</span>(<span class="pl-vpf">string32</span> name) constant returns (bool result) {
+         address cName <span class="pl-k">=</span> contracts[name];
+        <span class="pl-k">if</span> (cName <span class="pl-k">==</span> <span class="pl-c1">0x0</span>){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        <span class="pl-k">if</span>(msg.sender <span class="pl-k">!=</span> owner){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        <span class="pl-c">// Kill any contracts we remove, for now.</span>
+        DougEnabled(cName).<span class="pl-s3">remove</span>();
+        contracts[name] <span class="pl-k">=</span> <span class="pl-c1">0x0</span>;
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+
+    <span class="pl-st">function</span> <span class="pl-en">remove</span>(){
+        <span class="pl-k">if</span>(msg.sender <span class="pl-k">==</span> owner){
+            suicide(owner);
+        }
+    }
+
+}
+</pre>
+</div> 
+<p>We will also add a super simple bank contract.</p> 
+<div class="highlight highlight-javascript">
+ <pre><span class="pl-c">// The Bank contract</span>
+contract Bank {
+
+    <span class="pl-c">// This is where we keep all the permissions.</span>
+    mapping (address <span class="pl-k">=&gt;</span> uint) <span class="pl-s">public</span> balances;
+
+    <span class="pl-c">// Endow an address with coins.</span>
+    <span class="pl-st">function</span> <span class="pl-en">endow</span>(<span class="pl-vpf">address</span> addr, <span class="pl-vpf">uint</span> amount) {
+        balances[addr] <span class="pl-k">+=</span> amount;
+    }
+
+    <span class="pl-c">// Charge an account 'amount' number of coins.</span>
+    <span class="pl-st">function</span> <span class="pl-en">charge</span>(<span class="pl-vpf">address</span> addr, <span class="pl-vpf">uint</span> amount) constant returns (bool){
+        <span class="pl-k">if</span> (balances[addr] <span class="pl-k">&lt;</span> amount){
+            <span class="pl-c">// Bounces if balance is lower then the amount charged.</span>
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        balances[addr] <span class="pl-k">-=</span> amount;
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+
+}</pre>
+</div> 
+<p>What we would do in order to run a system like this is to deploy as such:</p> 
+<p>1) Deploy the DOUG contract. 2) Deploy the action manager contract and register it with the DOUG contract under the name &quot;actions&quot;. 3) Deploy the bank contract and register it with the DOUG contract under the name &quot;bank&quot;.</p> 
+<p>What we need do next is to add an action for endowing an address with coins, and one for charging it. We need to add one more function to the actions interface though - the setDougAddress function. This function is what will give actions (indirect) access to all the contracts in the system so they can carry out their work. It is also an important security measure. We will use the DougEnabled contract from part 1.</p> 
+<div class="highlight highlight-javascript">
+ <pre>contract DougEnabled {
+    address DOUG;
+
+    <span class="pl-st">function</span> <span class="pl-en">setDougAddress</span>(<span class="pl-vpf">address</span> dougAddr) returns (bool result){
+        <span class="pl-c">// Once the doug address is set, don't allow it to be set again, except by the</span>
+        <span class="pl-c">// doug contract itself.</span>
+        <span class="pl-k">if</span>(DOUG <span class="pl-k">!=</span> <span class="pl-c1">0x0</span> <span class="pl-k">&amp;&amp;</span> dougAddr <span class="pl-k">!=</span> DOUG){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        DOUG <span class="pl-k">=</span> dougAddr;
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;    
+    }
+
+    <span class="pl-c">// Makes it so that Doug is the only contract that may kill it.</span>
+    <span class="pl-st">function</span> <span class="pl-en">remove</span>(){
+        <span class="pl-k">if</span>(msg.sender <span class="pl-k">==</span> DOUG){
+            suicide(DOUG);
+        }
+    }
+
+}</pre>
+</div> 
+<p>The basic action template starts like this:</p> 
+<div class="highlight highlight-javascript">
+ <pre>contract Action is DougEnabled {}</pre>
+</div> 
+<p>Note that we don't include an 'execute' signature, as it is too generic and Solidity does not support generic signatures. We will add the execute function on a per-action basis for now. </p> 
+<p>To lock these contracts down even more, we only allow the contract currently registered as <code>actions</code> to call the functions. Much like the <code>FundManagerEnabled</code> contract in part 1.</p> 
+<div class="highlight highlight-javascript">
+ <pre>contract ContractProvider {
+    <span class="pl-st">function</span> <span class="pl-en">contracts</span>(<span class="pl-vpf">string32</span> name) returns (address){}
+}
+
+contract ActionManagerEnabled is DougEnabled {
+    <span class="pl-c">// Makes it easier to check that action manager is the caller.</span>
+    <span class="pl-st">function</span> <span class="pl-en">isActionManager</span>() inheritable constant returns (bool) {
+        <span class="pl-k">if</span>(DOUG <span class="pl-k">!=</span> <span class="pl-c1">0x0</span>){
+            address am <span class="pl-k">=</span> ContractProvider(DOUG).contracts(<span class="pl-s1"><span class="pl-pds">&quot;</span>actions<span class="pl-pds">&quot;</span></span>);
+            <span class="pl-k">if</span> (msg.sender <span class="pl-k">==</span> am){
+                <span class="pl-k">return</span> <span class="pl-c1">true</span>;        
+            }
+        }
+        <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+    }
+}</pre>
+</div> 
+<p>This means the new action base class is this:</p> 
+<div class="highlight highlight-javascript">
+ <pre>contract Action is ActionManagerEnabled {}</pre>
+</div> 
+<p>Here's the endow action contract.</p> 
+<div class="highlight highlight-javascript">
+ <pre><span class="pl-c">// The Bank contract (the &quot;sub interface&quot; we need).</span>
+contract Endower {
+    <span class="pl-st">function</span> <span class="pl-en">endow</span>(<span class="pl-vpf">address</span> addr, <span class="pl-vpf">uint</span> amount) {}
+}
+
+<span class="pl-c">// The endow action.</span>
+contract ActionEndow is Action {
+
+    <span class="pl-st">function</span> <span class="pl-en">execute</span>(<span class="pl-vpf">address</span> addr, <span class="pl-vpf">uint</span> amount) constant returns (bool) {
+        <span class="pl-k">if</span>(<span class="pl-k">!</span>isActionManager()){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        ContractProvider dg <span class="pl-k">=</span> ContractProvider(DOUG);
+        address endower <span class="pl-k">=</span> dg.getContract(<span class="pl-s1"><span class="pl-pds">&quot;</span>bank<span class="pl-pds">&quot;</span></span>);
+        <span class="pl-k">if</span>(endower <span class="pl-k">==</span> <span class="pl-c1">0x0</span>){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        Endower(endower).endow(addr, amount);
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+}</pre>
+</div> 
+<p>This is the action for charging.</p> 
+<div class="highlight highlight-javascript">
+ <pre>
+<span class="pl-c">// The Bank contract (or the &quot;sub interface&quot; we need).</span>
+contract Charger {
+    <span class="pl-st">function</span> <span class="pl-en">charge</span>(<span class="pl-vpf">address</span> addr, <span class="pl-vpf">uint</span> amount) constant returns (bool) {}
+}
+
+<span class="pl-c">// The charge action.</span>
+contract ActionCharge {
+
+    <span class="pl-st">function</span> <span class="pl-en">execute</span>(<span class="pl-vpf">address</span> addr, <span class="pl-vpf">uint</span> amount) constant returns (bool) {
+        <span class="pl-k">if</span>(<span class="pl-k">!</span>isActionManager()){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        ContractProvider dg <span class="pl-k">=</span> ContractProvider(DOUG);
+        address charger <span class="pl-k">=</span> dg.getContract(<span class="pl-s1"><span class="pl-pds">&quot;</span>bank<span class="pl-pds">&quot;</span></span>);
+        <span class="pl-k">if</span>(charger <span class="pl-k">==</span> <span class="pl-c1">0x0</span>){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        Charger(charger).charge(addr,amount);
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+
+}</pre>
+</div> 
+<p>When we add these actions to the action manager it will be possible for users to execute them and work with the bank contract that way, but it is still possible to interact the bank contract directly so the actions are not really useful. That's what we're going to change that next.</p> 
+<h3> <a id="user-content-permissions" class="anchor" href="#permissions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Permissions</h3> 
+<p>Step 2 is to control which of the contracts in the doug cluster that can be accessed from the outside. It should only be possible to interact with the contracts through actions, and it should only be possible to run actions through the actions manager. The first thing we need to do is make sure the action manager calls the 'setDougAddress' function that we added to the actions. It should call it and pass the DOUG address to the action as soon as it's registered. If the function returns false, that means it already has a doug address set, which in turn means the actions should not be registered with the action manager at all.</p> 
+<p>We also need to add the DOUG address to the action manager. In fact, the bank and all other contracts like it should have a function that allows the DOUG value to be set so we'll just doug-enable all of them.</p> 
+<p>The action manager will also get a 'validate' function that can be called by other contracts to ensure that only actions can call them, and finally we will also break out the actions list into a separate database contract.</p> 
+<p>Finally, we will separate the actions database from the action manager as per the recommendations in part 1.</p> 
+<p><strong>The updated contracts</strong></p> 
+<p>This is the new action manager. We're adding the setDougAddress functionality when adding actions and also an 'active contract' field that will be used for validation. We will make <code>ActionDb</code>callable only from the action manager now, but there will be an even better system later.</p> 
+<div class="highlight highlight-javascript">
+ <pre>contract ActionDb is ActionManagerEnabled {
+
+    <span class="pl-c">// This is where we keep all the actions.</span>
+    mapping (string32 <span class="pl-k">=&gt;</span> address) <span class="pl-s">public</span> actions;
+
+    <span class="pl-st">function</span> <span class="pl-en">addAction</span>(<span class="pl-vpf">string32</span> name, <span class="pl-vpf">address</span> addr) constant returns (bool) {
+        <span class="pl-k">if</span>(<span class="pl-k">!</span>isActionManager()){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        actions[name] <span class="pl-k">=</span> addr;
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+
+    <span class="pl-st">function</span> <span class="pl-en">removeAction</span>(<span class="pl-vpf">string32</span> name) constant returns (bool) {
+        <span class="pl-k">if</span>(<span class="pl-k">!</span>isActionManager()){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        <span class="pl-k">if</span> (actions[name] <span class="pl-k">==</span> <span class="pl-c1">0x0</span>){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        actions[name] <span class="pl-k">=</span> <span class="pl-c1">0x0</span>;
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+
+}</pre>
+</div> 
+<div class="highlight highlight-javascript">
+ <pre><span class="pl-c">// The new action manager.</span>
+contract ActionManager is DougEnabled {
+
+    <span class="pl-c">// This is where we keep the &quot;active action&quot;.</span>
+    address activeAction;
+
+    <span class="pl-st">function</span> <span class="pl-en">ActionManager</span>(){
+    }
+
+    <span class="pl-st">function</span> <span class="pl-en">execute</span>(<span class="pl-vpf">string32</span> actionName, <span class="pl-vpf">bytes</span> data) constant returns (bool) {
+        address actionDb <span class="pl-k">=</span> ContractProvider(DOUG).contracts(<span class="pl-s1"><span class="pl-pds">&quot;</span>actiondb<span class="pl-pds">&quot;</span></span>);
+        <span class="pl-k">if</span> (actionDb <span class="pl-k">==</span> <span class="pl-c1">0x0</span>){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        address actn <span class="pl-k">=</span> ActionDb(actionDb).actions(actionName);
+        <span class="pl-c">// If no action with the given name exists - cancel.</span>
+        <span class="pl-k">if</span> (actn <span class="pl-k">==</span> <span class="pl-c1">0x0</span>){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        <span class="pl-c">// Set this as the currently active action.</span>
+        activeAction <span class="pl-k">=</span> actn;
+        <span class="pl-c">// Run the action. Any contract that calls 'validate' now will only get 'true' if the </span>
+        <span class="pl-c">// calling contract is 'actn'.</span>
+        bool b <span class="pl-k">=</span> actn.<span class="pl-s3">call</span>(data);
+        <span class="pl-c">// Now clear it.</span>
+        activeAction <span class="pl-k">=</span> <span class="pl-c1">0x0</span>;
+        <span class="pl-k">return</span> b;
+    }
+
+    <span class="pl-st">function</span> <span class="pl-en">addAction</span>(<span class="pl-vpf">string32</span> name, <span class="pl-vpf">address</span> addr) constant returns (bool) {
+        address actionDb <span class="pl-k">=</span> ContractProvider(DOUG).contracts(<span class="pl-s1"><span class="pl-pds">&quot;</span>actiondb<span class="pl-pds">&quot;</span></span>);
+        <span class="pl-k">if</span> (actionDb <span class="pl-k">==</span> <span class="pl-c1">0x0</span>){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        bool res <span class="pl-k">=</span> ActionDb(actionDb).addAction(name,addr);
+        <span class="pl-k">return</span> res;
+    }
+
+    <span class="pl-st">function</span> <span class="pl-en">removeAction</span>(<span class="pl-vpf">string32</span> name) constant returns (bool) {
+        address actionDb <span class="pl-k">=</span> ContractProvider(DOUG).contracts(<span class="pl-s1"><span class="pl-pds">&quot;</span>actiondb<span class="pl-pds">&quot;</span></span>);
+        <span class="pl-k">if</span> (actionDb <span class="pl-k">==</span> <span class="pl-c1">0x0</span>){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        bool res <span class="pl-k">=</span> ActionDb(actionDb).removeAction(name);
+        <span class="pl-k">return</span> res;
+    }
+
+    <span class="pl-c">// Validate can be called by a contract like the bank to check if the</span>
+    <span class="pl-c">// contract calling it has permissions to do so.</span>
+    <span class="pl-st">function</span> <span class="pl-en">validate</span>(<span class="pl-vpf">address</span> addr) constant returns (bool) {
+        <span class="pl-k">return</span> addr <span class="pl-k">==</span> activeAction;
+    }   
+
+}</pre>
+</div> 
+<p>Here is the new bank:</p> 
+<div class="highlight highlight-javascript">
+ <pre>
+<span class="pl-c">// Interaction with the action manager.</span>
+contract Validator {
+    <span class="pl-st">function</span> <span class="pl-en">validate</span>(<span class="pl-vpf">address</span> addr) constant returns (bool) {}
+}
+
+<span class="pl-c">// The Bank contract - now inherits DougEnabled</span>
+contract Bank is DougEnabled {
+
+    <span class="pl-c">// Endow an address with coins.        </span>
+    <span class="pl-st">function</span> <span class="pl-en">endow</span>(<span class="pl-vpf">address</span> addr, <span class="pl-vpf">uint</span> amount) constant returns (bool) {
+        address actns <span class="pl-k">=</span> ContractProvider(DOUG).getContract(<span class="pl-s1"><span class="pl-pds">&quot;</span>actions<span class="pl-pds">&quot;</span></span>);
+        <span class="pl-k">if</span> (actns <span class="pl-k">==</span> <span class="pl-c1">0x0</span>){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+
+        Validator v <span class="pl-k">=</span> Validator(actns);
+        <span class="pl-c">// If the sender is not validated successfully, break.</span>
+        <span class="pl-k">if</span> (<span class="pl-k">!</span>v.validate(msg.sender)){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        balance[addr] <span class="pl-k">+=</span> amount;
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+
+    <span class="pl-c">// Charge an account 'amount' number of coins.</span>
+    <span class="pl-st">function</span> <span class="pl-en">charge</span>(<span class="pl-vpf">address</span> addr, <span class="pl-vpf">uint</span> amount) constant returns (bool){
+        address actns <span class="pl-k">=</span> ContractProvider(DOUG).getContract(<span class="pl-s1"><span class="pl-pds">&quot;</span>actions<span class="pl-pds">&quot;</span></span>);
+        <span class="pl-k">if</span> (actns <span class="pl-k">==</span> <span class="pl-c1">0x0</span>){
+            <span class="pl-k">return</span>;
+        }
+
+        Validator v <span class="pl-k">=</span> Validator(actns);
+        <span class="pl-c">// If the sender is not validated successfully, break.</span>
+        <span class="pl-k">if</span> (<span class="pl-k">!</span>v.validate(msg.sender)){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+
+        <span class="pl-k">if</span> (balance[addr] <span class="pl-k">&lt;</span> amount){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+
+        balance[addr] <span class="pl-k">-=</span> amount;
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+
+}</pre>
+</div> 
+<p>What we have now is a system that allows us to add contracts (any contracts) to DOUG, and actions. The contracts can not be called except through actions, which means that we can control who gets to call the contracts by controlling who gets to execute actions, and since the actions are all handled in a similar way it will be easy to do that. </p> 
+<p>There is other benefits to a system like this as well, for example PRODOUG used the fact that all transactions went through the action manager to log them. The log included data such as the caller address, which action was called, the number of the block in which the tx was added, etc. This is a useful thing to do if you want to keep track of what's going on.</p> 
+<h3> <a id="user-content-locking-things-down" class="anchor" href="#locking-things-down" aria-hidden="true"><span class="octicon octicon-link"></span></a>Locking things down</h3> 
+<p>The last thing we have to fix is access to DOUG and the action manager. It is true that the bank and other contracts must be called via actions, but anyone is allowed to add and remove actions, and also to add and remove contracts from DOUG. We're going to start by adding a simple permissions contract that we can use to set permissions for accounts. It'll be registered with DOUG under the name &quot;perms&quot;. We're then going to add functions to actions where permissions can be gotten and set. Finally we will complement the system with the following basic actions:</p> 
+<ul> 
+ <li>add action</li> 
+ <li>remove action</li> 
+ <li>add contract</li> 
+ <li>remove contract</li> 
+ <li>set account permissions</li> 
+ <li>modify action permissions</li> 
+</ul> 
+<p>Note that there will be an add action action. This will actually be hard coded into the action database upon creation, but can be replaced later (through the add action action itself). </p> 
+<p><em>Pro tip: Don't remove the add action action.</em></p> 
+<div class="highlight highlight-javascript">
+ <pre>
+<span class="pl-c">// The Permissions contract</span>
+contract Permissions is DougEnabled {
+
+    <span class="pl-c">// This is where we keep all the permissions.</span>
+    mapping (address <span class="pl-k">=&gt;</span> uint8) <span class="pl-s">public</span> perms;
+
+    <span class="pl-st">function</span> <span class="pl-en">setPermission</span>(<span class="pl-vpf">address</span> addr, <span class="pl-vpf">uint8</span> perm) constant returns (bool) {
+        address actns <span class="pl-k">=</span> ContractProvider(DOUG).getContract(<span class="pl-s1"><span class="pl-pds">&quot;</span>actions<span class="pl-pds">&quot;</span></span>);
+        <span class="pl-k">if</span> (actns <span class="pl-k">==</span> <span class="pl-c1">0x0</span>){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        Validator v <span class="pl-k">=</span> Validator(actns);
+        <span class="pl-c">// If the sender is not validated successfully, break.</span>
+        <span class="pl-k">if</span> (<span class="pl-k">!</span>v.validate(msg.sender)) {
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+
+        perms[addr] <span class="pl-k">=</span> addr;
+    }
+
+}</pre>
+</div> 
+<p>Next we will modify the actions template so that it is possible to get and set the permissions required to execute them. We will add the following functions to the interface:</p> 
+<div class="highlight highlight-javascript">
+ <pre><span class="pl-st">function</span> <span class="pl-en">getPremission</span>() constant returns (uint) {}
+<span class="pl-st">function</span> <span class="pl-en">setPermission</span>(<span class="pl-vpf">uint8</span> permVal) constant returns (bool) {}</pre>
+</div> 
+<p>This is how we'd update the action managers execute function.</p> 
+<div class="highlight highlight-javascript">
+ <pre>
+<span class="pl-c">// For getting permissions.</span>
+contract Permissioner {
+    <span class="pl-st">function</span> <span class="pl-en">perms</span>(<span class="pl-vpf">address</span> addr) constant returns (uint8) { }
+}
+
+<span class="pl-c">// This is how the new execute function would look in the ActionManager contract.</span>
+
+<span class="pl-st">function</span> <span class="pl-en">execute</span>(<span class="pl-vpf">string32</span> actionName, <span class="pl-vpf">bytes</span> data) constant returns (bool) {
+
+    ...
+
+    <span class="pl-c">// Permissions stuff</span>
+    address pAddr <span class="pl-k">=</span> ContractProvider(DOUG).getContract(<span class="pl-s1"><span class="pl-pds">&quot;</span>perms<span class="pl-pds">&quot;</span></span>);
+    <span class="pl-k">if</span>(pAddr <span class="pl-k">==</span> <span class="pl-c1">0x0</span>){
+        <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+    }
+    Permissioner p <span class="pl-k">=</span> Permissioner(pAddr);
+
+    <span class="pl-c">// First we check the permissions of the account that's trying to execute the action.</span>
+    uint8 perm <span class="pl-k">=</span> p.getPermission(msg.sender);
+    <span class="pl-c">// Now we check the permission that is required to execute the action.</span>
+    uint8 permReq <span class="pl-k">=</span> Action(actn).getPermission();
+    <span class="pl-c">// Very simple system.</span>
+    <span class="pl-k">if</span> (perm <span class="pl-k">&lt;</span> permReq){
+        <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+    }
+
+    <span class="pl-c">// Proceed to execute the action.</span>
+
+    ...
+
+}</pre>
+</div> 
+<p>Before assembling a list of the final contracts, we need to do some final modifications. For example, when adding and removing actions to the action manager it will basically have to validate against itself. It can just check its <code>activeAction</code> field directly instead of calling <code>validate</code>.</p> 
+<p>Doug will also have to be modified. We need it to validate the account when someone is trying to add a contract. This is a bit weird, because how then would you go about adding the action manager contract? The way it worked in PRODOUG was to check if the action manager is there. If there is no action manager then just allow anything. Adding the action manager is what you'd use to lock the system down.</p> 
+<p>Also, what about removing? How do we remove Doug? Whoever is allowed to do that can kill the entire system with one press of a button, so this would often have to be regulated somehow, but if it's a normal dapp that has an owner it could be as easy as giving the owner the exclusive right to kill the DOUG contract. It does not have to be the same in every system.</p> 
+<p>Finally, this is just a basic action driven architecture. You'd normally extend it. PRODOUG for example had voting. This ment actions sometimes could not be carried out directly, instead the action would spawn a copy of itself, and be kept in a temporary list until the vote had been carried out. Those types of actions had an init function where all the parameters was set, and then an execute function that was carrried out when a vote was concluded. The way it worked with permissions was that actions did not return a number when asked for the required permission but a name of a poll type. These poll types was kept in a list in a different manager that handled polls. Sometimes the polls were automatic (based on some user property) and sometimes there was a full-on vote with time limits, a quorums and other things.</p> 
+<h3> <a id="user-content-the-finished-contracts" class="anchor" href="#the-finished-contracts" aria-hidden="true"><span class="octicon octicon-link"></span></a>The finished contracts</h3> 
+<p>Pure interfaces:</p> 
+<div class="highlight highlight-javascript">
+ <pre>
+<span class="pl-c">// Implemented by the action manager.</span>
+contract Validator {
+    <span class="pl-st">function</span> <span class="pl-en">validate</span>(<span class="pl-vpf">address</span> addr) constant returns (bool) {}
+}
+
+<span class="pl-c">// Implemented by the action manager.</span>
+contract ActionManager {
+    <span class="pl-st">function</span> <span class="pl-en">addAction</span>(<span class="pl-vpf">string32</span> name, <span class="pl-vpf">address</span> addr) constant returns (bool) {}
+    <span class="pl-st">function</span> <span class="pl-en">removeAction</span>(<span class="pl-vpf">string32</span> name) constant returns (bool) {}
+    <span class="pl-st">function</span> <span class="pl-en">getAction</span>(<span class="pl-vpf">string32</span> name) returns (address addr) {}
+}
+
+<span class="pl-c">// Implemented by Doug.</span>
+contract ContractProvider {
+    <span class="pl-st">function</span> <span class="pl-en">contracts</span>(<span class="pl-vpf">string32</span> name) returns (address) {}
+}
+
+<span class="pl-c">// Implemented by Doug.</span>
+contract ContractRegistry {
+    <span class="pl-st">function</span> <span class="pl-en">addContract</span>(<span class="pl-vpf">string32</span> name) returns (address addr) {}
+    <span class="pl-st">function</span> <span class="pl-en">removeContract</span>(<span class="pl-vpf">string32</span> name) constant returns (bool result) {}
+}
+
+<span class="pl-c">// Implemented by the bank contract.</span>
+contract Endower {
+    <span class="pl-st">function</span> <span class="pl-en">endow</span>(<span class="pl-vpf">address</span> addr, <span class="pl-vpf">uint</span> amount) constant returns (bool){}
+}
+
+<span class="pl-c">// Implemented by the bank contract.</span>
+contract Charger {
+    <span class="pl-st">function</span> <span class="pl-en">charge</span>(<span class="pl-vpf">address</span> addr, <span class="pl-vpf">uint</span> amount) constant returns (bool) {}
+}
+
+<span class="pl-c">// Implemented by the permissions contract.</span>
+contract Permissioner {
+    <span class="pl-st">function</span> <span class="pl-en">perms</span>(<span class="pl-vpf">address</span> addr) constant returns (uint8) {}
+}
+
+<span class="pl-c">// Implemented by the permissions contract.</span>
+contract PermissionSetter {
+    <span class="pl-st">function</span> <span class="pl-en">setPermission</span>(<span class="pl-vpf">address</span> addr, <span class="pl-vpf">uint8</span> perm) constant returns (bool) {}
+}
+</pre>
+</div> 
+<p>Basic contracts:</p> 
+<div class="highlight highlight-javascript">
+ <pre><span class="pl-c">// Base class for contracts that are used in a doug system.</span>
+ccontract DougEnabled {
+    address DOUG;
+
+    <span class="pl-st">function</span> <span class="pl-en">setDougAddress</span>(<span class="pl-vpf">address</span> dougAddr) returns (bool result){
+        <span class="pl-c">// Once the doug address is set, don't allow it to be set again, except by the</span>
+        <span class="pl-c">// doug contract itself.</span>
+        <span class="pl-k">if</span>(DOUG <span class="pl-k">!=</span> <span class="pl-c1">0x0</span> <span class="pl-k">&amp;&amp;</span> dougAddr <span class="pl-k">!=</span> DOUG){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        DOUG <span class="pl-k">=</span> dougAddr;
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;    
+    }
+
+    <span class="pl-c">// Makes it so that Doug is the only contract that may kill it.</span>
+    <span class="pl-st">function</span> <span class="pl-en">remove</span>(){
+        <span class="pl-k">if</span>(msg.sender <span class="pl-k">==</span> DOUG){
+            suicide(DOUG);
+        }
+    }
+
+}
+
+<span class="pl-c">// Base class for contracts that are doing validation against an action manager.</span>
+contract Validating is DougEnabled {
+    address DOUG;
+
+    <span class="pl-st">function</span> <span class="pl-en">isValid</span>() constant returns (bool){
+        <span class="pl-k">if</span>(DOUG <span class="pl-k">==</span> <span class="pl-c1">0x0</span>){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        address amAddr <span class="pl-k">=</span> ContractProvider(DOUG).contracts(<span class="pl-s1"><span class="pl-pds">&quot;</span>actions<span class="pl-pds">&quot;</span></span>);
+        <span class="pl-k">if</span>(actions <span class="pl-k">==</span> <span class="pl-c1">0x0</span>){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        <span class="pl-k">return</span> Validator(amAddr).validate(msg.sender);
+    }
+
+}
+
+contract ActionManagerEnabled is DougEnabled {
+    <span class="pl-c">// Makes it easier to check that action manager is the caller.</span>
+    <span class="pl-st">function</span> <span class="pl-en">isActionManager</span>() inheritable constant returns (bool) {
+        <span class="pl-k">if</span>(DOUG <span class="pl-k">!=</span> <span class="pl-c1">0x0</span>){
+            address am <span class="pl-k">=</span> ContractProvider(DOUG).contracts(<span class="pl-s1"><span class="pl-pds">&quot;</span>actions<span class="pl-pds">&quot;</span></span>);
+            <span class="pl-k">if</span> (msg.sender <span class="pl-k">==</span> am){
+                <span class="pl-k">return</span> <span class="pl-c1">true</span>;        
+            }
+        }
+        <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+    }
+}</pre>
+</div> 
+<p>Contracts:</p> 
+<div class="highlight highlight-javascript">
+ <pre>
+contract ActionDb is ActionManagerEnabled {
+
+    <span class="pl-c">// This is where we keep all the actions.</span>
+    mapping (string32 <span class="pl-k">=&gt;</span> address) <span class="pl-s">public</span> actions;
+
+    <span class="pl-st">function</span> <span class="pl-en">addAction</span>(<span class="pl-vpf">string32</span> name, <span class="pl-vpf">address</span> addr) constant returns (bool) {
+        <span class="pl-k">if</span>(<span class="pl-k">!</span>isActionManager()){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        actions[name] <span class="pl-k">=</span> addr;
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+
+    <span class="pl-st">function</span> <span class="pl-en">removeAction</span>(<span class="pl-vpf">string32</span> name) constant returns (bool) {
+        <span class="pl-k">if</span>(<span class="pl-k">!</span>isActionManager()){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        <span class="pl-k">if</span> (actions[name] <span class="pl-k">==</span> <span class="pl-c1">0x0</span>){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        actions[name] <span class="pl-k">=</span> <span class="pl-c1">0x0</span>;
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+
+}
+
+<span class="pl-c">// The new action manager.</span>
+contract ActionManager is DougEnabled {
+
+    <span class="pl-c">// This is where we keep the &quot;active action&quot;.</span>
+    address activeAction;
+
+    <span class="pl-st">function</span> <span class="pl-en">ActionManager</span>(){
+    }
+
+    <span class="pl-st">function</span> <span class="pl-en">execute</span>(<span class="pl-vpf">string32</span> actionName, <span class="pl-vpf">bytes</span> data) constant returns (bool) {
+        address actionDb <span class="pl-k">=</span> ContractProvider(DOUG).contracts(<span class="pl-s1"><span class="pl-pds">&quot;</span>actiondb<span class="pl-pds">&quot;</span></span>);
+        <span class="pl-k">if</span> (actionDb <span class="pl-k">==</span> <span class="pl-c1">0x0</span>){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        address actn <span class="pl-k">=</span> ActionDb(actionDb).actions(actionName);
+        <span class="pl-c">// If no action with the given name exists - cancel.</span>
+        <span class="pl-k">if</span> (actn <span class="pl-k">==</span> <span class="pl-c1">0x0</span>){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        <span class="pl-c">// Set this as the currently active action.</span>
+        activeAction <span class="pl-k">=</span> actn;
+        <span class="pl-c">// Run the action. Any contract that calls 'validate' now will only get 'true' if the </span>
+        <span class="pl-c">// calling contract is 'actn'.</span>
+        bool b <span class="pl-k">=</span> actn.<span class="pl-s3">call</span>(data);
+        <span class="pl-c">// Now clear it.</span>
+        activeAction <span class="pl-k">=</span> <span class="pl-c1">0x0</span>;
+        <span class="pl-k">return</span> b;
+    }
+
+    <span class="pl-st">function</span> <span class="pl-en">addAction</span>(<span class="pl-vpf">string32</span> name, <span class="pl-vpf">address</span> addr) constant returns (bool) {
+        address actionDb <span class="pl-k">=</span> ContractProvider(DOUG).contracts(<span class="pl-s1"><span class="pl-pds">&quot;</span>actiondb<span class="pl-pds">&quot;</span></span>);
+        <span class="pl-k">if</span> (actionDb <span class="pl-k">==</span> <span class="pl-c1">0x0</span>){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        bool res <span class="pl-k">=</span> ActionDb(actionDb).addAction(name,addr);
+        <span class="pl-k">return</span> res;
+    }
+
+    <span class="pl-st">function</span> <span class="pl-en">removeAction</span>(<span class="pl-vpf">string32</span> name) constant returns (bool) {
+        address actionDb <span class="pl-k">=</span> ContractProvider(DOUG).contracts(<span class="pl-s1"><span class="pl-pds">&quot;</span>actiondb<span class="pl-pds">&quot;</span></span>);
+        <span class="pl-k">if</span> (actionDb <span class="pl-k">==</span> <span class="pl-c1">0x0</span>){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        bool res <span class="pl-k">=</span> ActionDb(actionDb).removeAction(name);
+        <span class="pl-k">return</span> res;
+    }
+
+    <span class="pl-c">// Validate can be called by a contract like the bank to check if the</span>
+    <span class="pl-c">// contract calling it has permissions to do so.</span>
+    <span class="pl-st">function</span> <span class="pl-en">validate</span>(<span class="pl-vpf">address</span> addr) constant returns (bool) {
+        <span class="pl-k">return</span> addr <span class="pl-k">==</span> activeAction;
+    }   
+
+}
+
+<span class="pl-c">// The action manager. We don't enable for action manager since validating is a lot easier here.</span>
+contract ActionManager is DougEnabled {
+
+
+    <span class="pl-st">function</span> <span class="pl-en">execute</span>(<span class="pl-vpf">string32</span> actionName, <span class="pl-vpf">uint8</span> paramLength, <span class="pl-vpf">array</span> params) constant <span class="pl-k">return</span> (bool result) {
+        address actn <span class="pl-k">=</span> actions[actionName];
+        <span class="pl-c">// If no action with the given name exists - cancel.</span>
+        <span class="pl-k">if</span> (actn <span class="pl-k">==</span> <span class="pl-c1">0x0</span>){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        <span class="pl-c">// Set this as the currently active action.</span>
+        activeAction <span class="pl-k">=</span> actn;
+        <span class="pl-c">// Run the action. Any contract that calls 'validate' now will only get 'true' if the </span>
+        <span class="pl-c">// calling contract is 'actn'.</span>
+        bool b <span class="pl-k">=</span> Action(actn).execute(params);
+        <span class="pl-c">// Now clear it.</span>
+        activeAction <span class="pl-k">=</span> <span class="pl-c1">0x0</span>;
+        <span class="pl-k">return</span> b;
+    }
+
+    <span class="pl-st">function</span> <span class="pl-en">addAction</span>(<span class="pl-vpf">string32</span> name, <span class="pl-vpf">address</span> addr) {
+        <span class="pl-c">// Make sure that the caller is the active action.</span>
+        <span class="pl-k">if</span> (msg.sender <span class="pl-k">!=</span> activeAction){
+            <span class="pl-k">return</span>;
+        }
+        DougEnabled de <span class="pl-k">=</span> DougEnabled(addr);
+        <span class="pl-k">if</span>(<span class="pl-k">!</span>de.setDougAddress(<span class="pl-v">this</span>)) 
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        actions[name] <span class="pl-k">=</span> addr;
+
+    }
+
+    <span class="pl-st">function</span> <span class="pl-en">removeAction</span>(<span class="pl-vpf">string32</span> name) constant <span class="pl-k">return</span> (bool result) {
+        <span class="pl-c">// Make sure that the action exists and that the caller is the active action.</span>
+        <span class="pl-k">if</span> (actions[name] <span class="pl-k">==</span> <span class="pl-c1">0x0</span> <span class="pl-k">||</span> msg.sender <span class="pl-k">!=</span> activeAction){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        actions[name] <span class="pl-k">=</span> <span class="pl-c1">0x0</span>;
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+
+    <span class="pl-c">// We need this now too.</span>
+    <span class="pl-st">function</span> <span class="pl-en">getAction</span>(<span class="pl-vpf">string32</span> name) <span class="pl-k">return</span> (address addr) {
+        <span class="pl-k">return</span> actions[name]
+    }
+
+    <span class="pl-c">// Validate can be called by a contract like the bank to check if the</span>
+    <span class="pl-c">// contract calling it has permissions to do so.</span>
+    <span class="pl-st">function</span> <span class="pl-en">validate</span>(<span class="pl-vpf">address</span> addr) constant <span class="pl-k">return</span> (bool result) {
+        <span class="pl-k">return</span> (addr <span class="pl-k">==</span> activeAction);
+    }   
+
+}</pre>
+</div> 
+<p>Bank</p> 
+<div class="highlight highlight-javascript">
+ <pre><span class="pl-c">// The Bank contract - now inherits ActionManagerEnabled</span>
+contract Bank is ActionManagerEnabled {
+
+    <span class="pl-c">// This is where we keep all the permissions.</span>
+    mapping (address <span class="pl-k">=&gt;</span> uint) balance;
+
+    <span class="pl-c">// Endow an address with coins.        </span>
+    <span class="pl-st">function</span> <span class="pl-en">endow</span>(<span class="pl-vpf">address</span> addr, <span class="pl-vpf">uint</span> amount) onlyactions {
+        <span class="pl-k">if</span> (<span class="pl-k">!</span>callerIsAction){
+            <span class="pl-k">return</span>;
+        }       
+        balance[addr] <span class="pl-k">+=</span> amount;
+    }
+
+    <span class="pl-c">// Charge an account 'amount' number of coins.</span>
+    <span class="pl-st">function</span> <span class="pl-en">charge</span>(<span class="pl-vpf">address</span> addr, <span class="pl-vpf">uint</span> amount) constant <span class="pl-k">return</span> (bool result) onlyactions {
+        <span class="pl-k">if</span> (<span class="pl-k">!</span>callerIsAction){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        <span class="pl-k">if</span> (balance[addr] <span class="pl-k">&lt;</span> amount){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+
+        balance[addr] <span class="pl-k">-=</span> amount;
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+
+}</pre>
+</div> 
+<p>Permissions</p> 
+<div class="highlight highlight-javascript">
+ <pre><span class="pl-c">// The Permissions contract - now inherits ActionManagerEnabled</span>
+contract Permissions is ActionManagerEnabled {
+
+    <span class="pl-c">// This is where we keep all the permissions.</span>
+    mapping (address <span class="pl-k">=&gt;</span> uint8) perms;
+
+    <span class="pl-st">function</span> <span class="pl-en">setPermission</span>(<span class="pl-vpf">address</span> addr, <span class="pl-vpf">uint8</span> perm) onlyactions {
+        <span class="pl-k">if</span> (<span class="pl-k">!</span>callerIsAction){
+            <span class="pl-k">return</span>;
+        }
+        address charger <span class="pl-k">=</span> dg.getContract(<span class="pl-s1"><span class="pl-pds">&quot;</span>bank<span class="pl-pds">&quot;</span></span>);
+        perms[addr] <span class="pl-k">=</span> addr;
+    }
+
+    <span class="pl-c">// This does not update the contract, so no security check is needed. It's just a getter.</span>
+    <span class="pl-st">function</span> <span class="pl-en">getPermission</span>(<span class="pl-vpf">address</span> addr) constant <span class="pl-k">return</span> (uint permVal) {
+        <span class="pl-k">return</span> perms[addr];
+    }
+
+}</pre>
+</div> 
+<p>Actions:</p> 
+<p>Action base</p> 
+<div class="highlight highlight-javascript">
+ <pre>
+<span class="pl-c">// Base contract for actions - note that 'execute' is not added right now because of the types and arrays stuff.</span>
+contract Action is ActionManagerEnabled {
+    uint8 permReq
+
+    <span class="pl-st">function</span> <span class="pl-en">getPremission</span>() constant returns (uint pLevel) {
+        <span class="pl-k">return</span> permReq
+    }
+
+    <span class="pl-st">function</span> <span class="pl-en">setPermission</span>(<span class="pl-vpf">uint8</span> permVal) constant returns (bool ret) onlyactions {
+        <span class="pl-k">if</span> (<span class="pl-k">!</span>callerIsAction){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        permReq <span class="pl-k">=</span> permVal;
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+
+    <span class="pl-c">// This is where the execute function will be.</span>
+
+}</pre>
+</div> 
+<p>AddAction</p> 
+<div class="highlight highlight-javascript">
+ <pre>
+<span class="pl-c">// The add action action.</span>
+contract ActionAddAction is Action {
+
+    <span class="pl-c">// Adds the action with the given name and contract address.</span>
+    <span class="pl-st">function</span> <span class="pl-en">execute</span>(<span class="pl-vpf">string32</span> nameArg, <span class="pl-vpf">string32</span> addressArg) constant <span class="pl-k">return</span> (bool result) {
+        <span class="pl-k">if</span>(<span class="pl-k">!</span>callerIsActions){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        ContractProvider dg <span class="pl-k">=</span> ContractProvider(DOUG);
+        ActionRegistry(dg.getContract(<span class="pl-s1"><span class="pl-pds">&quot;</span>actions<span class="pl-pds">&quot;</span></span>)).addAction(nameArg,address(addressArg));
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+}</pre>
+</div> 
+<p>RemoveAction</p> 
+<div class="highlight highlight-javascript">
+ <pre>
+<span class="pl-c">// The remove action action.</span>
+contract ActionAddAction is Action {
+
+    <span class="pl-c">// Removes the action with the given name.</span>
+    <span class="pl-st">function</span> <span class="pl-en">execute</span>(<span class="pl-vpf">string32</span> nameArg) constant <span class="pl-k">return</span> (bool result) {
+        <span class="pl-k">if</span>(<span class="pl-k">!</span>callerIsActions){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        ContractProvider dg <span class="pl-k">=</span> ContractProvider(DOUG);
+        ActionRegistry(dg.getContract(<span class="pl-s1"><span class="pl-pds">&quot;</span>actions<span class="pl-pds">&quot;</span></span>)).removeAction(nameArg);
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+}</pre>
+</div> 
+<p>AddContract</p> 
+<div class="highlight highlight-javascript">
+ <pre>
+<span class="pl-c">// The add contract action.</span>
+contract ActionAddContract is Action {
+
+    <span class="pl-c">// Adds the contract with the given name and contract address to Doug.</span>
+    <span class="pl-st">function</span> <span class="pl-en">execute</span>(<span class="pl-vpf">string32</span> nameArg, <span class="pl-vpf">string32</span> addressArg) constant <span class="pl-k">return</span> (bool result) {
+        <span class="pl-k">if</span>(<span class="pl-k">!</span>callerIsActions){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        ContractProvider dg <span class="pl-k">=</span> ContractProvider(DOUG).addContract(nameArg,address(addressArg));
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+}</pre>
+</div> 
+<p>RemoveContract</p> 
+<div class="highlight highlight-javascript">
+ <pre>
+<span class="pl-c">// The remove contract action.</span>
+contract ActionRemoveContract is Action {
+
+    <span class="pl-c">// Removes the contract with the given name from Doug.</span>
+    <span class="pl-st">function</span> <span class="pl-en">execute</span>(<span class="pl-vpf">string32</span> nameArg) constant <span class="pl-k">return</span> (bool result) {
+        <span class="pl-k">if</span>(<span class="pl-k">!</span>callerIsActions){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        ContractProvider dg <span class="pl-k">=</span> ContractProvider(DOUG).removeContract(nameArg);
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+}</pre>
+</div> 
+<p>SetPermission</p> 
+<div class="highlight highlight-javascript">
+ <pre>
+<span class="pl-c">// The set permission action.</span>
+contract ActionSetPermission is Action {
+
+    <span class="pl-c">// Sets the permission of the given account to the given level.</span>
+    <span class="pl-st">function</span> <span class="pl-en">execute</span>(<span class="pl-vpf">string32</span> addressArg, <span class="pl-vpf">string32</span> permLvl) constant <span class="pl-k">return</span> (bool result) {
+        <span class="pl-k">if</span>(<span class="pl-k">!</span>callerIsActions){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        ContractProvider dg <span class="pl-k">=</span> ContractProvider(DOUG);
+        address perm <span class="pl-k">=</span> dg.getContract(<span class="pl-s1"><span class="pl-pds">&quot;</span>perms<span class="pl-pds">&quot;</span></span>);
+        PermissionSetter(perm).setPermission(address(addressArg),uint8(permLvl));
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+}</pre>
+</div> 
+<p>ModActionPermission</p> 
+<div class="highlight highlight-javascript">
+ <pre>
+<span class="pl-c">// The modify action permission action.</span>
+contract ActionModActionPermission is Action {
+
+    <span class="pl-c">// Sets the permission of the given action to the given level.</span>
+    <span class="pl-st">function</span> <span class="pl-en">execute</span>(<span class="pl-vpf">string32</span> nameArg, <span class="pl-vpf">string32</span> permLvl) constant <span class="pl-k">return</span> (bool result) {
+        <span class="pl-k">if</span>(<span class="pl-k">!</span>callerIsActions){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        ContractProvider dg <span class="pl-k">=</span> ContractProvider(DOUG);
+        ActionRegistry ar <span class="pl-k">=</span> ActionRegistry(dg.getContract(<span class="pl-s1"><span class="pl-pds">&quot;</span>actions<span class="pl-pds">&quot;</span></span>));
+        address aAddr <span class="pl-k">=</span> ar.getAction(nameArg);
+        <span class="pl-k">if</span> (aAddr <span class="pl-k">==</span> <span class="pl-c1">0x0</span>) {
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        Action(aAddr).setPermission(uint8(permLvl));
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+}</pre>
+</div> 
+<p>ActionEndow</p> 
+<div class="highlight highlight-javascript">
+ <pre>
+<span class="pl-c">// The endow action.</span>
+contract ActionEndow {
+
+    <span class="pl-c">// Endows an account with coins.</span>
+    <span class="pl-st">function</span> <span class="pl-en">execute</span>(<span class="pl-vpf">string32</span> addressArg, <span class="pl-vpf">string32</span> amountArg) constant <span class="pl-k">return</span> (bool result) {
+        <span class="pl-k">if</span>(<span class="pl-k">!</span>callerIsActions){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        ContractProvider dg <span class="pl-k">=</span> ContractProvider(DOUG);
+        address endower <span class="pl-k">=</span> dg.getContract(<span class="pl-s1"><span class="pl-pds">&quot;</span>bank<span class="pl-pds">&quot;</span></span>);
+        <span class="pl-c">// address and uint casts just placeholders.</span>
+        Endower(endower).endow(address(addressArg), uint(amountArg));
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+}</pre>
+</div> 
+<p>ActionCharge</p> 
+<div class="highlight highlight-javascript">
+ <pre>
+<span class="pl-c">// The charge action.</span>
+contract ActionCharge {
+
+    <span class="pl-c">// Charges an account.</span>
+    <span class="pl-st">function</span> <span class="pl-en">execute</span>(<span class="pl-vpf">string32</span> addressArg, <span class="pl-vpf">string32</span> amountArg) constant <span class="pl-k">return</span> (bool result) {
+        <span class="pl-k">if</span>(<span class="pl-k">!</span>callerIsActions){
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        }
+        ContractProvider dg <span class="pl-k">=</span> ContractProvider(DOUG);
+        address charger <span class="pl-k">=</span> dg.getContract(<span class="pl-s1"><span class="pl-pds">&quot;</span>bank<span class="pl-pds">&quot;</span></span>);
+        <span class="pl-c">// address and uint casts just placeholders.</span>
+        Charger(charger).charge(address(addressArg), uint(amountArg));
+        <span class="pl-c">// We don't care whether or not the action succeded atm.</span>
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+}</pre>
+</div>
+</body>
+</html>
