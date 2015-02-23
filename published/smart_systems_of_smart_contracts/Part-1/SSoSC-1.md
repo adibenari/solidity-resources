@@ -631,7 +631,7 @@ contract Doug {
 }
 ```
 
-Note that Doug is actually a misnomer. There is a type of Ethereum contracts called Dougs but they have a lot of components. One of the components is name registration, though, so I tend to call these type of top-level namereg CMCs Doug.
+Note that Doug is actually a misnomer. There is a type of Ethereum contracts called [DOUGs](http://www.reddit.com/r/ethereum/comments/23n1x4/introducing_doug_the_decentralized_organization/) but they have a lot of components. One of the components is name registration, though, so I tend to call these type of top-level namereg CMCs Doug.
 
 We will use this contract to store the following contracts: "fundmanager", "bank", "bankdb", "perms", "permsdb". We're also going to add links to Doug in all of them and then use it as glue. They'll call doug to get the address to contracts they need, cast them, and then call the functions. This is how it will work more specifically:
 
